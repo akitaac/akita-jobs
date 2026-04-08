@@ -10,160 +10,733 @@
 <title>Akita — Commission Report</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:     #1a2e4a;
-    --navy2:    #1e3554;
-    --blue:     #2e7fbf;
-    --blue-dim: rgba(46,127,191,0.1);
-    --sky:      #b8d9f0;
-    --white:    #ffffff;
-    --off:      #f0f6fb;
-    --text:     #1a2e4a;
-    --muted:    #6b8098;
-    --border:   #c8dcea;
-    --border2:  #dceefa;
-    --error:    #d94f4f;
-    --success:  #2a9d6f;
+  :root{
+    --navy:#1a2e4a;
+    --navy2:#1e3554;
+    --blue:#2e7fbf;
+    --blue-dim:rgba(46,127,191,0.1);
+    --sky:#b8d9f0;
+    --white:#ffffff;
+    --off:#f0f6fb;
+    --text:#1a2e4a;
+    --muted:#6b8098;
+    --border:#c8dcea;
+    --border2:#dceefa;
+    --error:#d94f4f;
+    --success:#2a9d6f;
   }
 
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
-  html, body {
-    background: var(--off);
-    color: var(--text);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    min-height: 100vh;
-    overscroll-behavior: none;
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
   }
 
-  .app-header {
-    background: var(--navy);
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  html,body{
+    background:var(--off);
+    color:var(--text);
+    font-family:'Open Sans',sans-serif;
+    font-size:15px;
+    min-height:100vh;
+    overscroll-behavior:none;
   }
 
-  .app-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue) 0%, var(--sky) 60%, transparent 100%);
+  .app-header{
+    background:var(--navy);
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:72px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
   }
 
-  .header-logo img {
-    height: 44px;
-    width: auto;
-    display: block;
-    object-fit: contain;
+  .app-header::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg,var(--blue) 0%,var(--sky) 60%,transparent 100%);
   }
 
-  .header-badge {
-    background: var(--blue);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 10px;
+  .header-logo{
+    display:flex;
+    align-items:center;
   }
 
-  .progress-wrap { background: var(--navy2); height: 3px; position: sticky; top: 72px; z-index: 99; }
-  .progress-fill { height: 100%; background: var(--sky); transition: width 0.4s; width: 0%; }
-
-  .step-bar {
-    background: var(--navy);
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 75px;
-    z-index: 98;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+  .header-logo img{
+    height:46px;
+    width:auto;
+    display:block;
+    object-fit:contain;
+    filter:none !important;
+    -webkit-filter:none !important;
   }
 
-  .step-dots { display: flex; gap: 6px; }
-  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: all 0.3s; }
-  .step-dot.active { background: var(--sky); transform: scale(1.25); }
-  .step-dot.done   { background: var(--blue); }
-
-  .step-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); }
-
-  .form-body { padding-bottom: 120px; }
-  .section { display: none; animation: fadeUp 0.28s ease; }
-  .section.active { display: block; }
-
-  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-
-  .section-header { background: var(--navy); padding: 24px 20px 20px; position: relative; overflow: hidden; }
-  .section-num { font-family: 'Montserrat'; font-size: 9.5px; font-weight: 700; color: var(--sky); letter-spacing: 2.5px; margin-bottom: 6px; }
-  .section-title { font-family: 'Montserrat'; font-size: 22px; font-weight: 800; color: white; line-height: 1.1; }
-  .section-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 5px; }
-
-  .field-group { padding: 4px 20px; }
-  .field { padding: 14px 0; border-bottom: 1px solid var(--border2); }
-  .field-label { font-family: 'Montserrat'; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-
-  input, select, textarea { 
-    width: 100%; background: white; border: 1.5px solid var(--border); padding: 12px 14px; font-family: 'Open Sans'; font-size: 15px; border-radius: 0; outline: none; 
+  .header-badge{
+    background:var(--blue);
+    color:var(--white);
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:9px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:6px 10px;
+    white-space:nowrap;
   }
-  input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
 
-  .readings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-  .reading-card { background: var(--navy); padding: 14px 12px; position: relative; }
-  .reading-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
-  .reading-card .field-label { color: rgba(255,255,255,0.45); }
-  .reading-card input { background: transparent; border: none; border-bottom: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 24px; font-weight: 800; padding: 4px 0; }
-  .reading-unit { font-size: 9px; color: rgba(255,255,255,0.28); text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+  .progress-wrap{
+    background:var(--navy2);
+    height:3px;
+    position:sticky;
+    top:72px;
+    z-index:99;
+  }
 
-  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .photo-slot { aspect-ratio: 4/3; background: var(--navy); border: 2px dashed rgba(46,127,191,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-  .photo-slot input { position: absolute; inset: 0; opacity: 0; z-index: 2; cursor: pointer; }
-  .photo-slot-icon { font-size: 22px; opacity: 0.3; }
-  .photo-slot-label { font-family: 'Montserrat'; font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); text-align: center; }
-  .photo-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .progress-fill{
+    height:100%;
+    background:var(--sky);
+    transition:width 0.35s ease;
+    width:0%;
+  }
 
-  .signature-wrap { background: white; border: 1.5px solid var(--border); padding: 10px; margin-top: 10px; }
-  #signaturePad { width: 100%; height: 180px; background: #fff; touch-action: none; border: 1px solid var(--border2); }
+  .step-bar{
+    background:var(--navy);
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:75px;
+    z-index:98;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
 
-  .unit-card { background: white; border: 1.5px solid var(--border); border-left: 4px solid var(--navy); padding: 14px; margin-bottom: 8px; }
-  .add-unit-btn { width: 100%; padding: 13px; background: transparent; border: 1.5px dashed var(--blue); color: var(--blue); font-family: 'Montserrat'; font-weight: 700; font-size: 11px; text-transform: uppercase; margin-top: 4px; }
+  .step-dots{ display:flex; gap:6px; }
 
-  .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 2px solid var(--border); padding: 12px 20px; display: flex; gap: 10px; z-index: 100; box-shadow: 0 -4px 20px rgba(26,46,74,0.08); }
-  .btn { flex: 1; padding: 15px; font-family: 'Montserrat'; font-weight: 700; font-size: 11.5px; border: none; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
-  .btn-back { background: var(--off); color: var(--muted); border: 1.5px solid var(--border); flex: 0 0 80px; font-size: 18px; }
-  .btn-next { background: var(--navy); color: white; }
-  .btn-submit { background: var(--success); color: white; }
+  .step-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.2);
+    transition:all 0.3s;
+  }
 
-  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(26,46,74,0.9); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
-  .loading-overlay.active { display: flex; }
-  .spinner { width: 48px; height: 48px; border: 3px solid rgba(184,217,240,0.2); border-top-color: var(--sky); border-radius: 50%; animation: spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  
-  .submit-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 40px; }
-  .submit-screen.active { display: flex; }
+  .step-dot.active{
+    background:var(--sky);
+    transform:scale(1.25);
+  }
+
+  .step-dot.done{
+    background:var(--blue);
+  }
+
+  .step-label{
+    font-family:'Montserrat',sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--sky);
+  }
+
+  .form-body{ padding-bottom:120px; }
+
+  .section{
+    display:none;
+    animation:fadeUp 0.28s ease;
+  }
+
+  .section.active{ display:block; }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .section-header{
+    background:var(--navy);
+    padding:24px 20px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .section-header::before{
+    content:'';
+    position:absolute;
+    top:0; right:0;
+    width:0; height:0;
+    border-style:solid;
+    border-width:0 80px 80px 0;
+    border-color:transparent rgba(184,217,240,0.1) transparent transparent;
+  }
+
+  .section-num{
+    font-family:'Montserrat',sans-serif;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--sky);
+    margin-bottom:6px;
+  }
+
+  .section-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:22px;
+    font-weight:800;
+    color:var(--white);
+    letter-spacing:-0.5px;
+    line-height:1.1;
+  }
+
+  .section-sub{
+    font-size:12px;
+    color:rgba(255,255,255,0.45);
+    margin-top:5px;
+  }
+
+  .field-group{ padding:4px 20px; }
+
+  .field{
+    padding:14px 0;
+    border-bottom:1px solid var(--border2);
+  }
+
+  .field:last-child{ border-bottom:none; }
+
+  .field-label{
+    font-family:'Montserrat',sans-serif;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .req{
+    color:var(--blue);
+    font-size:12px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea{
+    width:100%;
+    background:var(--white);
+    border:1.5px solid var(--border);
+    color:var(--text);
+    font-family:'Open Sans',sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    border-radius:0;
+    outline:none;
+    appearance:none;
+    -webkit-appearance:none;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(46,127,191,0.1);
+  }
+
+  input::placeholder, textarea::placeholder{
+    color:#b0c4d8;
+  }
+
+  textarea{
+    min-height:90px;
+    resize:vertical;
+    line-height:1.5;
+  }
+
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232e7fbf' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    background-color:var(--white);
+    padding-right:36px;
+    cursor:pointer;
+  }
+
+  .field.has-error input,
+  .field.has-error select,
+  .field.has-error textarea{
+    border-color:var(--error);
+  }
+
+  .field-error{
+    font-family:'Montserrat',sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--error);
+    margin-top:6px;
+    display:none;
+  }
+
+  .field.has-error .field-error{
+    display:block;
+  }
+
+  .toggle-group{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .toggle-btn{
+    font-family:'Montserrat',sans-serif;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    padding:9px 16px;
+    background:var(--white);
+    border:1.5px solid var(--border);
+    color:var(--muted);
+    cursor:pointer;
+    transition:all 0.15s;
+    user-select:none;
+  }
+
+  .toggle-btn.selected{
+    background:var(--blue-dim);
+    border-color:var(--blue);
+    color:var(--navy);
+    font-weight:700;
+  }
+
+  .check-toggle{
+    width:100%;
+    text-align:left;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .check-toggle::before{
+    content:'';
+    width:20px; height:20px;
+    border:1.5px solid var(--border);
+    background:var(--white);
+    flex-shrink:0;
+    transition:all 0.15s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .check-toggle.selected{
+    background:var(--blue-dim);
+    border-color:var(--blue);
+    color:var(--navy);
+  }
+
+  .check-toggle.selected::before{
+    background:var(--blue);
+    border-color:var(--blue);
+    content:'✓';
+    color:var(--white);
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .readings-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:6px;
+  }
+
+  .reading-card{
+    background:var(--navy);
+    padding:14px 12px 12px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .reading-card::before{
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+    background:var(--blue);
+  }
+
+  .reading-card .field-label{
+    color:rgba(255,255,255,0.45);
+    margin-bottom:6px;
+  }
+
+  .reading-card input{
+    background:transparent;
+    border:none;
+    border-bottom:1.5px solid rgba(255,255,255,0.2);
+    padding:4px 0;
+    font-family:'Montserrat',sans-serif;
+    font-size:24px;
+    font-weight:800;
+    color:var(--white);
+    letter-spacing:-0.5px;
+    box-shadow:none;
+  }
+
+  .reading-card input:focus{
+    border-bottom-color:var(--sky);
+    box-shadow:none;
+  }
+
+  .reading-card input::placeholder{
+    color:rgba(255,255,255,0.2);
+  }
+
+  .reading-unit{
+    font-family:'Montserrat',sans-serif;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.28);
+    margin-top:4px;
+  }
+
+  .photo-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .photo-slot{
+    aspect-ratio:4/3;
+    background:var(--navy);
+    border:2px dashed rgba(46,127,191,0.4);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:border-color 0.2s;
+  }
+
+  .photo-slot:active{ border-color:var(--blue); }
+
+  .photo-slot input[type="file"]{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    cursor:pointer;
+    width:100%;
+    height:100%;
+    padding:0;
+    border:none;
+    background:none;
+    z-index:3;
+  }
+
+  .photo-slot-icon{
+    font-size:22px;
+    opacity:0.3;
+  }
+
+  .photo-slot-label{
+    font-family:'Montserrat',sans-serif;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    text-align:center;
+    padding:0 8px;
+  }
+
+  .photo-slot img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+  }
+
+  .remove-photo{
+    position:absolute;
+    top:6px;
+    right:6px;
+    background:var(--navy);
+    border:none;
+    color:white;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:4;
+  }
+
+  .signature-wrap{
+    background:var(--white);
+    border:1.5px solid var(--border);
+    padding:10px;
+    margin-top:10px;
+  }
+
+  #signaturePad{
+    width:100%;
+    height:180px;
+    background:#fff;
+    touch-action:none;
+    border:1px solid var(--border2);
+    display:block;
+  }
+
+  .unit-card{
+    background:white;
+    border:1.5px solid var(--border);
+    border-left:4px solid var(--navy);
+    padding:14px;
+    margin-bottom:8px;
+  }
+
+  .unit-card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+  }
+
+  .unit-card-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--navy);
+  }
+
+  .unit-remove{
+    background:none;
+    border:1.5px solid var(--border);
+    color:var(--muted);
+    font-size:18px;
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    line-height:1;
+  }
+
+  .unit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    margin-top:6px;
+  }
+
+  .add-unit-btn{
+    width:100%;
+    padding:13px;
+    background:transparent;
+    border:1.5px dashed var(--blue);
+    color:var(--blue);
+    font-family:'Montserrat',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    cursor:pointer;
+    margin-top:4px;
+    transition:background 0.15s;
+  }
+
+  .add-unit-btn:active{
+    background:var(--blue-dim);
+  }
+
+  .nav-bar{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:white;
+    border-top:2px solid var(--border);
+    padding:12px 20px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom));
+    display:flex;
+    gap:10px;
+    z-index:100;
+    box-shadow:0 -4px 20px rgba(26,46,74,0.08);
+  }
+
+  .btn{
+    flex:1;
+    padding:15px;
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    border:none;
+    cursor:pointer;
+    transition:all 0.15s;
+  }
+
+  .btn-back{
+    background:var(--off);
+    color:var(--muted);
+    border:1.5px solid var(--border);
+    flex:0 0 80px;
+    font-size:18px;
+    letter-spacing:0;
+  }
+
+  .btn-next{
+    background:var(--navy);
+    color:white;
+  }
+
+  .btn-submit{
+    background:var(--success);
+    color:white;
+  }
+
+  .loading-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(26,46,74,0.9);
+    z-index:999;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+  }
+
+  .loading-overlay.active{ display:flex; }
+
+  .spinner{
+    width:48px;
+    height:48px;
+    border:3px solid rgba(184,217,240,0.2);
+    border-top-color:var(--sky);
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+  }
+
+  @keyframes spin{
+    to{ transform:rotate(360deg); }
+  }
+
+  .loading-text{
+    color:var(--sky);
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    letter-spacing:2px;
+    font-size:10px;
+    text-transform:uppercase;
+  }
+
+  .submit-screen{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:80vh;
+    text-align:center;
+    padding:40px 30px;
+  }
+
+  .submit-screen.active{ display:flex; }
+
+  .submit-icon{
+    width:80px;
+    height:80px;
+    background:var(--navy);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    color:white;
+    margin-bottom:24px;
+    position:relative;
+  }
+
+  .submit-icon::after{
+    content:'';
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:2px solid var(--sky);
+    animation:pulse-ring 2s infinite;
+  }
+
+  @keyframes pulse-ring{
+    0%{ transform:scale(1); opacity:0.6; }
+    100%{ transform:scale(1.15); opacity:0; }
+  }
+
+  .submit-title{
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    font-size:24px;
+    color:var(--navy);
+    margin-bottom:8px;
+    letter-spacing:-0.5px;
+  }
+
+  .submit-sub{
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.7;
+    max-width:280px;
+  }
+
+  .btn-new{
+    margin-top:32px;
+    padding:14px 40px;
+    background:var(--navy);
+    color:white;
+    font-family:'Montserrat',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    border:none;
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
 
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
-  <div style="color:var(--sky); font-family:'Montserrat'; font-weight:700; letter-spacing:2px; font-size:10px;">GENERATING REPORT...</div>
+  <div class="loading-text">Generating Report...</div>
 </div>
 
 <div class="app-header">
   <div class="header-logo">
     <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png" alt="Akita">
   </div>
-  <div class="header-badge">Commissioning</div>
+  <div class="header-badge">Commission Report</div>
 </div>
 
 <div class="progress-wrap">
@@ -172,7 +745,11 @@
 
 <div class="step-bar">
   <div class="step-dots" id="stepDots">
-    <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+    <div class="step-dot active"></div>
+    <div class="step-dot"></div>
+    <div class="step-dot"></div>
+    <div class="step-dot"></div>
+    <div class="step-dot"></div>
   </div>
   <div class="step-label" id="stepLabel">Step 1 of 5</div>
 </div>
@@ -185,11 +762,35 @@
       <div class="section-sub">Who is this installation for?</div>
     </div>
     <div class="field-group">
-      <div class="field"><div class="field-label">Customer Name</div><input type="text" id="customerName" placeholder="Full name"></div>
-      <div class="field"><div class="field-label">Phone Number</div><input type="tel" id="customerPhone" placeholder="07..."></div>
-      <div class="field"><div class="field-label">Email Address</div><input type="email" id="customerEmail" placeholder="customer@email.com"></div>
-      <div class="field"><div class="field-label">Installation Address</div><textarea id="customerAddress" placeholder="Full address"></textarea></div>
-      <div class="field"><div class="field-label">Property Type</div><select id="propertyType"><option>Residential</option><option>Commercial</option></select></div>
+      <div class="field" id="f-customerName">
+        <div class="field-label">Customer Name <span class="req">*</span></div>
+        <input type="text" id="customerName" placeholder="Full name">
+        <div class="field-error">Required</div>
+      </div>
+      <div class="field" id="f-customerPhone">
+        <div class="field-label">Phone Number <span class="req">*</span></div>
+        <input type="tel" id="customerPhone" placeholder="07...">
+        <div class="field-error">Required</div>
+      </div>
+      <div class="field" id="f-customerEmail">
+        <div class="field-label">Email Address <span class="req">*</span></div>
+        <input type="email" id="customerEmail" placeholder="customer@email.com">
+        <div class="field-error">Valid email required</div>
+      </div>
+      <div class="field" id="f-customerAddress">
+        <div class="field-label">Installation Address <span class="req">*</span></div>
+        <textarea id="customerAddress" placeholder="Full address"></textarea>
+        <div class="field-error">Required</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Property Type</div>
+        <select id="propertyType">
+          <option value="">Select...</option>
+          <option>Residential</option>
+          <option>Commercial</option>
+          <option>Industrial</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -197,13 +798,51 @@
     <div class="section-header">
       <div class="section-num">02 / 05</div>
       <div class="section-title">System Details</div>
-      <div class="section-sub">Outdoor and Indoor Units</div>
+      <div class="section-sub">Outdoor and indoor units</div>
     </div>
     <div class="field-group">
-      <div class="field"><div class="field-label">System Type</div><select id="systemType"><option>Split System</option><option>Multi-Split</option><option>Heat Pump</option></select></div>
-      <div class="field"><div class="field-label">Outdoor Model No.</div><input type="text" id="outdoorModelNumber"></div>
-      <div class="field"><div class="field-label">Outdoor Serial No.</div><input type="text" id="outdoorSerialNumber"></div>
-      <div class="field"><div class="field-label">Outdoor Unit Location</div><input type="text" id="outdoorUnitLocation" placeholder="e.g. Rear Garden"></div>
+      <div class="field">
+        <div class="field-label">System Type</div>
+        <select id="systemType">
+          <option value="">Select...</option>
+          <option>Split System</option>
+          <option>Multi-Split</option>
+          <option>Heat Pump</option>
+          <option>Cassette Unit</option>
+          <option>Ducted System</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="field-label">Outdoor Model No.</div>
+        <input type="text" id="outdoorModelNumber">
+      </div>
+      <div class="field">
+        <div class="field-label">Outdoor Serial No.</div>
+        <input type="text" id="outdoorSerialNumber">
+      </div>
+      <div class="field">
+        <div class="field-label">Outdoor Unit Location</div>
+        <input type="text" id="outdoorUnitLocation" placeholder="e.g. Rear Garden">
+      </div>
+      <div class="field">
+        <div class="field-label">Electrical Supply</div>
+        <select id="electricalOption">
+          <option value="">Select...</option>
+          <option>Single Phase 230V</option>
+          <option>Three Phase 400V</option>
+          <option>Dedicated Circuit</option>
+          <option>Existing Circuit</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="field-label">Drain Type</div>
+        <select id="drain">
+          <option value="">Select...</option>
+          <option>Gravity Drain</option>
+          <option>Condensate Pump</option>
+          <option>External Drain</option>
+        </select>
+      </div>
       <div class="field" style="border:none;">
         <div class="field-label">Indoor Unit(s)</div>
         <div id="indoorUnitsList"></div>
@@ -216,15 +855,69 @@
     <div class="section-header">
       <div class="section-num">03 / 05</div>
       <div class="section-title">Test Results</div>
-      <div class="section-sub">Final Readings</div>
+      <div class="section-sub">Final readings and engineer notes</div>
     </div>
     <div class="field-group">
       <div class="readings-grid">
-        <div class="reading-card"><div class="field-label">Pressure</div><input type="number" id="pressureValue" placeholder="0.0"><div class="reading-unit">Bar / PSI</div></div>
-        <div class="reading-card"><div class="field-label">Microns</div><input type="number" id="micronReading" placeholder="0"><div class="reading-unit">Microns</div></div>
-        <div class="reading-card"><div class="field-label">Current</div><input type="number" id="runningCurrent" placeholder="0.0"><div class="reading-unit">Amps</div></div>
+        <div class="reading-card">
+          <div class="field-label">Pressure</div>
+          <input type="number" id="pressureValue" placeholder="0.0">
+          <div class="reading-unit">Bar / PSI</div>
+        </div>
+        <div class="reading-card">
+          <div class="field-label">Microns</div>
+          <input type="number" id="micronReading" placeholder="0">
+          <div class="reading-unit">Microns</div>
+        </div>
+        <div class="reading-card">
+          <div class="field-label">Current</div>
+          <input type="number" id="runningCurrent" placeholder="0.0">
+          <div class="reading-unit">Amps</div>
+        </div>
+        <div class="reading-card">
+          <div class="field-label">Pipe Length</div>
+          <input type="number" id="pipeLength" placeholder="0">
+          <div class="reading-unit">Metres</div>
+        </div>
       </div>
-      <div class="field"><div class="field-label">Engineer Notes</div><textarea id="engineerComments" placeholder="Additional notes..."></textarea></div>
+
+      <div class="field">
+        <div class="field-label">Suction Line Size</div>
+        <div class="toggle-group" id="suctionLine">
+          <div class="toggle-btn" data-val='1/4"'>1/4"</div>
+          <div class="toggle-btn" data-val='3/8"'>3/8"</div>
+          <div class="toggle-btn" data-val='1/2"'>1/2"</div>
+          <div class="toggle-btn" data-val='5/8"'>5/8"</div>
+          <div class="toggle-btn" data-val='3/4"'>3/4"</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Liquid Line Size</div>
+        <div class="toggle-group" id="liquidLine">
+          <div class="toggle-btn" data-val='1/4"'>1/4"</div>
+          <div class="toggle-btn" data-val='3/8"'>3/8"</div>
+          <div class="toggle-btn" data-val='1/2"'>1/2"</div>
+          <div class="toggle-btn" data-val='5/8"'>5/8"</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Checks Completed</div>
+        <div class="toggle-group" id="checksGroup" style="flex-direction:column;gap:6px;margin-top:2px;">
+          <div class="toggle-btn check-toggle" data-key="pressureTest">Pressure Test</div>
+          <div class="toggle-btn check-toggle" data-key="vacuumTest">Vacuum Test</div>
+          <div class="toggle-btn check-toggle" data-key="leakTest">Leak Test</div>
+          <div class="toggle-btn check-toggle" data-key="controlsChecked">Controls / Thermostat Checked</div>
+          <div class="toggle-btn check-toggle" data-key="systemTested">Cooling &amp; Heating Tested</div>
+          <div class="toggle-btn check-toggle" data-key="customerDemo">Customer Demo Completed</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Engineer Notes</div>
+        <textarea id="engineerComments" placeholder="Additional notes..."></textarea>
+      </div>
     </div>
   </div>
 
@@ -232,14 +925,30 @@
     <div class="section-header">
       <div class="section-num">04 / 05</div>
       <div class="section-title">Photo Evidence</div>
-      <div class="section-sub">Tap to take photos</div>
+      <div class="section-sub">Tap to take or upload photos</div>
     </div>
     <div class="field-group">
       <div class="photo-grid">
-        <div class="photo-slot" id="slot-indoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Indoor Unit</div></div>
-        <div class="photo-slot" id="slot-outdoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Outdoor Unit</div></div>
-        <div class="photo-slot" id="slot-pipework"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Pipework</div></div>
-        <div class="photo-slot" id="slot-electrical"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Electrical</div></div>
+        <div class="photo-slot" id="slot-indoor">
+          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">Indoor Unit</div>
+        </div>
+        <div class="photo-slot" id="slot-outdoor">
+          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">Outdoor Unit</div>
+        </div>
+        <div class="photo-slot" id="slot-pipework">
+          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">Pipework</div>
+        </div>
+        <div class="photo-slot" id="slot-electrical">
+          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">Electrical</div>
+        </div>
       </div>
     </div>
   </div>
@@ -248,11 +957,23 @@
     <div class="section-header">
       <div class="section-num">05 / 05</div>
       <div class="section-title">Sign-Off</div>
-      <div class="section-sub">Final validation</div>
+      <div class="section-sub">Final validation before submission</div>
     </div>
     <div class="field-group">
-      <div class="field"><div class="field-label">Install Date</div><input type="date" id="installDate"></div>
-      <div class="field"><div class="field-label">Job Reference</div><input type="text" id="jobRef" placeholder="AK-2026-..."></div>
+      <div class="field" id="f-installDate">
+        <div class="field-label">Install Date <span class="req">*</span></div>
+        <input type="date" id="installDate">
+        <div class="field-error">Required</div>
+      </div>
+      <div class="field" id="f-jobRef">
+        <div class="field-label">Job Reference <span class="req">*</span></div>
+        <input type="text" id="jobRef" placeholder="AK-2026-...">
+        <div class="field-error">Required</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Customer Comments</div>
+        <textarea id="customerComments" placeholder="Any feedback from the customer..."></textarea>
+      </div>
       <div class="field">
         <div class="field-label">Customer Signature</div>
         <div class="signature-wrap"><canvas id="signaturePad"></canvas></div>
@@ -262,9 +983,10 @@
   </div>
 
   <div class="submit-screen" id="submitScreen">
-    <div style="font-size: 50px; color: var(--success);">✓</div>
-    <div class="section-title" style="color:var(--navy); margin-top:20px;">Report Sent</div>
-    <button class="add-unit-btn" style="width:200px; margin-top:30px;" onclick="location.reload()">New Report</button>
+    <div class="submit-icon">✓</div>
+    <div class="submit-title">Report Sent</div>
+    <div class="submit-sub">The commissioning report has been generated and sent successfully.</div>
+    <button class="btn-new" onclick="location.reload()">New Report</button>
   </div>
 </div>
 
@@ -275,32 +997,37 @@
 
 <script>
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0PkTD85HhHzlZXI1QHfHxC4RrX4kUpT079ZL9tvE1dWaRU2iZxN-y_hCiWy7cJXc/exec';
-  
+
   let currentSection = 1;
   let unitCount = 0;
   const photos = {};
 
-  // Init Date
   document.getElementById('installDate').valueAsDate = new Date();
 
-  function addIndoorUnit() {
+  function addIndoorUnit(location = '', model = '', serial = '') {
     unitCount++;
     const div = document.createElement('div');
     div.className = 'unit-card';
     div.id = `unit-row-${unitCount}`;
     div.innerHTML = `
-      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-        <span style="font-family:'Montserrat'; font-weight:700; font-size:10px; color:var(--navy);">INDOOR UNIT ${unitCount}</span>
-        ${unitCount > 1 ? `<span onclick="document.getElementById('unit-row-${unitCount}').remove()">×</span>` : ''}
+      <div class="unit-card-head">
+        <div class="unit-card-title">Indoor Unit ${unitCount}</div>
+        ${unitCount > 1 ? `<button type="button" class="unit-remove" onclick="removeUnit(${unitCount})">×</button>` : ''}
       </div>
-      <input type="text" class="u-loc" placeholder="Location" style="margin-bottom:5px;">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
-        <input type="text" class="u-mod" placeholder="Model No.">
-        <input type="text" class="u-ser" placeholder="Serial No.">
+      <input type="text" class="u-loc" placeholder="Location" value="${location}" style="margin-bottom:6px;">
+      <div class="unit-grid">
+        <input type="text" class="u-mod" placeholder="Model No." value="${model}">
+        <input type="text" class="u-ser" placeholder="Serial No." value="${serial}">
       </div>
     `;
     document.getElementById('indoorUnitsList').appendChild(div);
   }
+
+  function removeUnit(n) {
+    const el = document.getElementById(`unit-row-${n}`);
+    if (el) el.remove();
+  }
+
   addIndoorUnit();
 
   function updateProgress() {
@@ -308,9 +1035,13 @@
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
     document.getElementById('stepLabel').textContent = `Step ${currentSection} of 5`;
+
     document.querySelectorAll('.step-dot').forEach((d, i) => {
-      d.className = i+1 === currentSection ? 'step-dot active' : (i+1 < currentSection ? 'step-dot done' : 'step-dot');
+      d.className = i + 1 === currentSection
+        ? 'step-dot active'
+        : (i + 1 < currentSection ? 'step-dot done' : 'step-dot');
     });
+
     const nextBtn = document.getElementById('btnNext');
     if (currentSection === 5) {
       nextBtn.textContent = 'Generate Report ✓';
@@ -321,11 +1052,46 @@
     }
   }
 
+  function showSection(n) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + n).classList.add('active');
+    updateProgress();
+    window.scrollTo(0, 0);
+  }
+
+  function validateSection(n) {
+    let valid = true;
+    const required = {
+      1: ['customerName', 'customerPhone', 'customerEmail', 'customerAddress'],
+      5: ['installDate', 'jobRef']
+    };
+
+    if (!required[n]) return true;
+
+    required[n].forEach(id => {
+      const el = document.getElementById(id);
+      const wrapper = document.getElementById('f-' + id);
+      if (!el || !wrapper) return;
+
+      let ok = (el.value || '').trim() !== '';
+      if (id === 'customerEmail' && ok) {
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+      }
+
+      wrapper.classList.toggle('has-error', !ok);
+      if (!ok) valid = false;
+    });
+
+    return valid;
+  }
+
   function nextSection() {
     if (currentSection < 5) {
+      if (!validateSection(currentSection)) return;
       currentSection++;
       showSection(currentSection);
     } else {
+      if (!validateSection(5)) return;
       submitForm();
     }
   }
@@ -337,64 +1103,163 @@
     }
   }
 
-  function showSection(n) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById('section-' + n).classList.add('active');
-    updateProgress();
-    window.scrollTo(0,0);
+  document.querySelectorAll('.toggle-group:not(#checksGroup)').forEach(group => {
+    group.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  });
+
+  document.querySelectorAll('.check-toggle').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('selected'));
+  });
+
+  function getToggleVal(groupId) {
+    const sel = document.querySelector('#' + groupId + ' .toggle-btn.selected');
+    return sel ? sel.dataset.val || sel.textContent.trim() : '';
+  }
+
+  function getChecks() {
+    const checks = {};
+    document.querySelectorAll('.check-toggle').forEach(btn => {
+      checks[btn.dataset.key] = btn.classList.contains('selected') ? 'Pass' : 'Not checked';
+    });
+    return checks;
   }
 
   function handlePhoto(input, key, slotId) {
     const file = input.files[0];
     if (!file) return;
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const max = 1000;
-        let w = img.width, h = img.height;
-        if (w > h && w > max) { h *= max/w; w = max; } else if (h > max) { w *= max/h; h = max; }
-        canvas.width = w; canvas.height = h;
+        let w = img.width;
+        let h = img.height;
+
+        if (w > h && w > max) {
+          h *= max / w;
+          w = max;
+        } else if (h > max) {
+          w *= max / h;
+          h = max;
+        }
+
+        canvas.width = w;
+        canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
         photos[key] = canvas.toDataURL('image/jpeg', 0.7);
-        document.getElementById(slotId).innerHTML = `<img src="${photos[key]}">`;
+
+        const slot = document.getElementById(slotId);
+        const labels = {
+          indoor: 'Indoor Unit',
+          outdoor: 'Outdoor Unit',
+          pipework: 'Pipework',
+          electrical: 'Electrical'
+        };
+
+        slot.innerHTML = `
+          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
+          <img src="${photos[key]}">
+          <button type="button" class="remove-photo" onclick="removePhoto(event,'${key}','${slotId}')">×</button>
+        `;
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  // SIGNATURE
+  function removePhoto(ev, key, slotId) {
+    ev.stopPropagation();
+    delete photos[key];
+
+    const labels = {
+      'slot-indoor': 'Indoor Unit',
+      'slot-outdoor': 'Outdoor Unit',
+      'slot-pipework': 'Pipework',
+      'slot-electrical': 'Electrical'
+    };
+
+    document.getElementById(slotId).innerHTML = `
+      <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
+      <div class="photo-slot-icon">📷</div>
+      <div class="photo-slot-label">${labels[slotId]}</div>
+    `;
+  }
+
   const sigCanvas = document.getElementById('signaturePad');
   const sigCtx = sigCanvas.getContext('2d');
   let sigDrawing = false;
+
   function resizeSig() {
-    const r = sigCanvas.getBoundingClientRect();
-    sigCanvas.width = r.width; sigCanvas.height = r.height;
+    const rect = sigCanvas.getBoundingClientRect();
+    sigCanvas.width = rect.width;
+    sigCanvas.height = rect.height;
+    sigCtx.lineWidth = 2;
+    sigCtx.lineCap = 'round';
+    sigCtx.lineJoin = 'round';
+    sigCtx.strokeStyle = '#1a2e4a';
   }
+
   window.addEventListener('resize', resizeSig);
   setTimeout(resizeSig, 200);
 
-  sigCanvas.addEventListener('touchstart', e => { sigDrawing = true; sigCtx.beginPath(); e.preventDefault(); }, {passive:false});
-  sigCanvas.addEventListener('touchmove', e => {
-    if (!sigDrawing) return;
-    const t = e.touches[0], r = sigCanvas.getBoundingClientRect();
-    sigCtx.lineWidth = 2; sigCtx.lineTo(t.clientX - r.left, t.clientY - r.top); sigCtx.stroke();
+  function getSigPos(e) {
+    const r = sigCanvas.getBoundingClientRect();
+    const point = e.touches ? e.touches[0] : e;
+    return {
+      x: point.clientX - r.left,
+      y: point.clientY - r.top
+    };
+  }
+
+  function startSig(e) {
+    sigDrawing = true;
+    const p = getSigPos(e);
+    sigCtx.beginPath();
+    sigCtx.moveTo(p.x, p.y);
     e.preventDefault();
-  }, {passive:false});
-  sigCanvas.addEventListener('touchend', () => sigDrawing = false);
-  function clearSignature() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
+  }
+
+  function moveSig(e) {
+    if (!sigDrawing) return;
+    const p = getSigPos(e);
+    sigCtx.lineTo(p.x, p.y);
+    sigCtx.stroke();
+    e.preventDefault();
+  }
+
+  function endSig() {
+    sigDrawing = false;
+  }
+
+  sigCanvas.addEventListener('mousedown', startSig);
+  sigCanvas.addEventListener('mousemove', moveSig);
+  sigCanvas.addEventListener('mouseup', endSig);
+  sigCanvas.addEventListener('mouseleave', endSig);
+
+  sigCanvas.addEventListener('touchstart', startSig, { passive:false });
+  sigCanvas.addEventListener('touchmove', moveSig, { passive:false });
+  sigCanvas.addEventListener('touchend', endSig);
+
+  function clearSignature() {
+    sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+  }
 
   async function submitForm() {
     document.getElementById('loadingOverlay').classList.add('active');
-    
+
     const indoorUnits = [];
     document.querySelectorAll('.unit-card').forEach(card => {
       indoorUnits.push({
-        location: card.querySelector('.u-loc').value,
-        model: card.querySelector('.u-mod').value,
-        serial: card.querySelector('.u-ser').value
+        location: card.querySelector('.u-loc')?.value || '',
+        modelNumber: card.querySelector('.u-mod')?.value || '',
+        serialNumber: card.querySelector('.u-ser')?.value || ''
       });
     });
 
@@ -408,15 +1273,22 @@
       outdoorModelNumber: document.getElementById('outdoorModelNumber').value,
       outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value,
       outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value,
+      electricalOption: document.getElementById('electricalOption').value,
+      drain: document.getElementById('drain').value,
       pressureValue: document.getElementById('pressureValue').value,
       micronReading: document.getElementById('micronReading').value,
       runningCurrent: document.getElementById('runningCurrent').value,
+      pipeLength: document.getElementById('pipeLength').value,
+      suctionLine: getToggleVal('suctionLine'),
+      liquidLine: getToggleVal('liquidLine'),
       engineerComments: document.getElementById('engineerComments').value,
+      customerComments: document.getElementById('customerComments').value,
       installDate: document.getElementById('installDate').value,
       jobRef: document.getElementById('jobRef').value,
       indoorUnits: indoorUnits,
       photos: photos,
-      signature: sigCanvas.toDataURL()
+      signature: sigCanvas.toDataURL(),
+      ...getChecks()
     };
 
     try {
@@ -425,15 +1297,18 @@
         mode: 'no-cors',
         body: JSON.stringify(payload)
       });
+
       document.getElementById('loadingOverlay').classList.remove('active');
       document.getElementById('formBody').style.display = 'none';
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
     } catch (e) {
-      alert("Submission Error: " + e.message);
+      alert('Submission Error: ' + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
     }
   }
+
+  updateProgress();
 </script>
 </body>
 </html>
