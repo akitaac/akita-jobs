@@ -57,18 +57,11 @@
     background: linear-gradient(90deg, var(--blue) 0%, var(--sky) 60%, transparent 100%);
   }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
-  }
-
   .header-logo img {
     height: 44px;
     width: auto;
     display: block;
     object-fit: contain;
-    filter: none !important;
-    -webkit-filter: none !important;
   }
 
   .header-badge {
@@ -80,23 +73,10 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 6px 10px;
-    white-space: nowrap;
   }
 
-  .progress-wrap {
-    background: var(--navy2);
-    height: 3px;
-    position: sticky;
-    top: 72px;
-    z-index: 99;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--sky);
-    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
-    width: 0%;
-  }
+  .progress-wrap { background: var(--navy2); height: 3px; position: sticky; top: 72px; z-index: 99; }
+  .progress-fill { height: 100%; background: var(--sky); transition: width 0.4s; width: 0%; }
 
   .step-bar {
     background: var(--navy);
@@ -107,568 +87,74 @@
     position: sticky;
     top: 75px;
     z-index: 98;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .step-dots { display: flex; gap: 6px; }
-
-  .step-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    transition: all 0.3s;
-  }
-
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
   .step-dot.active { background: var(--sky); transform: scale(1.25); }
   .step-dot.done   { background: var(--blue); }
 
-  .step-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--sky);
-  }
+  .step-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--sky); }
 
-  .form-body { padding-bottom: 100px; }
-  .section { display: none; animation: fadeUp 0.28s ease; }
+  .form-body { padding-bottom: 120px; }
+  .section { display: none; animation: fadeUp 0.3s ease; }
   .section.active { display: block; }
 
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(10px); }
-    to   { opacity:1; transform:translateY(0); }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .section-header { background: var(--navy); padding: 24px 20px 20px; color: white; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-sub { font-size: 12px; opacity: 0.6; }
+
+  .field-group { padding: 10px 20px; }
+  .field { padding: 15px 0; border-bottom: 1px solid var(--border2); }
+  .field-label { font-family: 'Montserrat', font-weight: 700; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  
+  input, select, textarea { 
+    width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 4px; font-size: 15px;
   }
 
-  .section-header {
-    background: var(--navy);
-    padding: 24px 20px 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .section-header::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 0; height: 0;
-    border-style: solid;
-    border-width: 0 80px 80px 0;
-    border-color: transparent rgba(184,217,240,0.1) transparent transparent;
-  }
-
-  .section-num {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--sky);
-    margin-bottom: 6px;
-  }
-
-  .section-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--white);
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-
-  .section-sub {
-    font-size: 12px;
-    color: rgba(255,255,255,0.45);
-    margin-top: 5px;
-  }
-
-  .field-group { padding: 4px 20px; }
-
-  .field {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border2);
-  }
-
-  .field:last-child { border-bottom: none; }
-
-  .field-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .req { color: var(--blue); font-size: 12px; }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="date"],
-  select,
-  textarea {
-    width: 100%;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    color: var(--text);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    padding: 12px 14px;
-    border-radius: 0;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(46,127,191,0.1);
-  }
-
-  input::placeholder, textarea::placeholder { color: #b0c4d8; }
-
-  textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232e7fbf' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-color: var(--white);
-    padding-right: 36px;
-    cursor: pointer;
-  }
-
-  .field.has-error input,
-  .field.has-error select,
-  .field.has-error textarea { border-color: var(--error); }
-
-  .field-error {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--error);
-    margin-top: 6px;
-    display: none;
-  }
-
-  .field.has-error .field-error { display: block; }
-
-  .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
-
-  .toggle-btn {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 9px 16px;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-  }
-
-  .toggle-btn.selected {
-    background: var(--blue-dim);
-    border-color: var(--blue);
-    color: var(--navy);
-    font-weight: 700;
-  }
-
-  .check-toggle {
-    width: 100%;
-    text-align: left;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .check-toggle::before {
-    content: '';
-    width: 20px; height: 20px;
-    border: 1.5px solid var(--border);
-    background: var(--white);
-    flex-shrink: 0;
-    transition: all 0.15s;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  .check-toggle.selected {
-    background: var(--blue-dim);
-    border-color: var(--blue);
-    color: var(--navy);
-  }
-
-  .check-toggle.selected::before {
-    background: var(--blue);
-    border-color: var(--blue);
-    content: '✓';
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
-  }
-
-  .readings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  .reading-card {
-    background: var(--navy);
-    padding: 14px 12px 12px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .reading-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--blue);
-  }
-
-  .reading-card .field-label { color: rgba(255,255,255,0.45); margin-bottom: 6px; }
-
-  .reading-card input {
-    background: transparent;
-    border: none;
-    border-bottom: 1.5px solid rgba(255,255,255,0.2);
-    padding: 4px 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--white);
-    letter-spacing: -0.5px;
-    box-shadow: none;
-  }
-
-  .reading-card input:focus {
-    border-bottom-color: var(--sky);
-    box-shadow: none;
-  }
-
-  .reading-card input::placeholder { color: rgba(255,255,255,0.2); }
-
-  .reading-unit {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.28);
-    margin-top: 4px;
-  }
+  .reading-card { background: var(--navy); padding: 15px; border-radius: 8px; margin-bottom: 10px; color: white; }
+  .reading-card input { background: transparent; border: none; border-bottom: 2px solid var(--blue); color: white; font-size: 24px; font-weight: 800; }
 
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #eef5fb; border: 2px dashed var(--border); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .photo-slot input { position: absolute; opacity: 0; width: 100%; height: 100%; }
+  .photo-slot img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
 
-  .photo-slot {
-    aspect-ratio: 4/3;
-    background: var(--navy);
-    border: 2px dashed rgba(46,127,191,0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
+  .signature-wrap { background: white; border: 1.5px solid var(--border); margin-top: 10px; }
+  #signaturePad { width: 100%; height: 200px; touch-action: none; }
 
-  .photo-slot:active { border-color: var(--blue); }
+  .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px 20px; display: flex; gap: 10px; border-top: 2px solid var(--border); z-index: 1000; }
+  .btn { flex: 1; padding: 16px; font-family: 'Montserrat'; font-weight: 700; border: none; border-radius: 4px; text-transform: uppercase; cursor: pointer; }
+  .btn-back { background: var(--off); color: var(--muted); flex: 0 0 70px; }
+  .btn-next { background: var(--navy); color: white; }
+  .btn-submit { background: var(--success); color: white; }
 
-  .photo-slot input[type="file"] {
-    position: absolute; inset: 0;
-    opacity: 0; cursor: pointer;
-    width: 100%; height: 100%;
-    padding: 0; border: none; background: none;
-  }
-
-  .photo-slot-icon { font-size: 22px; opacity: 0.3; }
-
-  .photo-slot-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    text-align: center;
-    padding: 0 8px;
-  }
-
-  .photo-slot img {
-    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  }
-
-  .remove-photo {
-    position: absolute; top: 6px; right: 6px;
-    background: var(--navy);
-    border: none; color: white;
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 2;
-  }
-
-  .signature-wrap {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    padding: 10px;
-  }
-
-  #signaturePad {
-    width: 100%;
-    height: 180px;
-    display: block;
-    background: #fff;
-    border: 1px solid var(--border2);
-    touch-action: none;
-  }
-
-  .sig-actions {
-    margin-top: 10px;
-  }
-
-  .unit-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-left: 4px solid var(--navy);
-    padding: 14px;
-    margin-bottom: 8px;
-  }
-
-  .unit-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .unit-card-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--navy);
-  }
-
-  .unit-remove-btn {
-    background: none;
-    border: 1.5px solid var(--border);
-    color: var(--muted);
-    font-size: 18px;
-    width: 28px; height: 28px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .unit-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;
-  }
-
-  .unit-input {
-    width: 100%;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    color: var(--text);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    padding: 10px 12px;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-    transition: border-color 0.2s;
-  }
-
-  .unit-input:focus { border-color: var(--blue); }
-
-  .add-unit-btn {
-    width: 100%;
-    padding: 13px;
-    background: transparent;
-    border: 1.5px dashed var(--blue);
-    color: var(--blue);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-top: 4px;
-    transition: background 0.15s;
-  }
-
-  .add-unit-btn:active { background: var(--blue-dim); }
-
-  .nav-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: var(--white);
-    border-top: 2px solid var(--border);
-    padding: 12px 20px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    display: flex;
-    gap: 10px;
-    z-index: 100;
-    box-shadow: 0 -4px 20px rgba(26,46,74,0.08);
-  }
-
-  .btn {
-    flex: 1;
-    padding: 15px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .btn-back {
-    background: var(--off);
-    color: var(--muted);
-    border: 1.5px solid var(--border);
-    flex: 0 0 80px;
-    font-size: 18px;
-    letter-spacing: 0;
-  }
-
-  .btn-next { background: var(--navy); color: var(--white); }
-  .btn-next:active { background: var(--navy2); transform: scale(0.98); }
-  .btn-back:active { opacity: 0.7; }
-  .btn-submit { background: var(--success); color: var(--white); }
-
-  .submit-screen {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    padding: 40px 30px;
-    text-align: center;
-  }
-
-  .submit-screen.active { display: flex; }
-
-  .submit-icon {
-    width: 80px; height: 80px;
-    background: var(--navy);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .submit-icon::after {
-    content: '';
-    position: absolute; inset: -6px;
-    border-radius: 50%;
-    border: 2px solid var(--sky);
-    animation: pulse-ring 2s infinite;
-  }
-
-  @keyframes pulse-ring {
-    0%   { transform:scale(1); opacity:0.6; }
-    100% { transform:scale(1.15); opacity:0; }
-  }
-
-  .submit-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    color: var(--navy);
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-  }
-
-  .submit-sub {
-    font-size: 13.5px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 280px;
-  }
-
-  .btn-new {
-    margin-top: 32px;
-    flex: none;
-    padding: 14px 40px;
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-  }
-
-  .loading-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(26,46,74,0.88);
-    z-index: 999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(26,46,74,0.95); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; color: var(--sky); }
   .loading-overlay.active { display: flex; }
-
-  .spinner {
-    width: 48px; height: 48px;
-    border: 3px solid rgba(184,217,240,0.2);
-    border-top-color: var(--sky);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
+  .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--sky); border-radius: 50%; animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .loading-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: var(--sky);
-    text-transform: uppercase;
-  }
+  .unit-card { background: white; padding: 15px; border: 1px solid var(--border); border-left: 5px solid var(--navy); margin-bottom: 10px; }
+  .add-unit-btn { width: 100%; padding: 12px; border: 2px dashed var(--blue); background: transparent; color: var(--blue); font-weight: 700; margin-top: 10px; }
+  
+  .submit-screen { display: none; text-align: center; padding: 60px 20px; }
+  .submit-screen.active { display: block; }
 </style>
 </head>
 <body>
 
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
-  <div class="loading-text">Generating Report...</div>
+  <p style="margin-top: 15px; font-weight: 700; letter-spacing: 1px;">GENERATING REPORT...</p>
 </div>
 
 <div class="app-header">
   <div class="header-logo">
-    <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png"
-         alt="Akita Air Conditioning & Refrigeration"
-         onerror="this.style.display='none'">
+    <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png" alt="Akita">
   </div>
-  <div class="header-badge">Commission Report</div>
+  <div class="header-badge">Commissioning</div>
 </div>
 
 <div class="progress-wrap">
@@ -689,243 +175,80 @@
 <div class="form-body" id="formBody">
   <div class="section active" id="section-1">
     <div class="section-header">
-      <div class="section-num">01 / 05</div>
       <div class="section-title">Customer Details</div>
       <div class="section-sub">Who is this installation for?</div>
     </div>
     <div class="field-group">
-      <div class="field" id="f-customerName">
-        <div class="field-label">Customer Name <span class="req">*</span></div>
-        <input type="text" id="customerName" placeholder="Full name" autocomplete="off">
-        <div class="field-error">Required</div>
-      </div>
-      <div class="field" id="f-customerPhone">
-        <div class="field-label">Phone Number <span class="req">*</span></div>
-        <input type="tel" id="customerPhone" placeholder="07700 000000">
-        <div class="field-error">Required</div>
-      </div>
-      <div class="field" id="f-customerEmail">
-        <div class="field-label">Email Address <span class="req">*</span></div>
-        <input type="email" id="customerEmail" placeholder="customer@email.com" autocomplete="off">
-        <div class="field-error">Valid email required</div>
-      </div>
-      <div class="field" id="f-customerAddress">
-        <div class="field-label">Installation Address <span class="req">*</span></div>
-        <textarea id="customerAddress" placeholder="Full address including postcode"></textarea>
-        <div class="field-error">Required</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Property Type</div>
-        <select id="propertyType">
-          <option value="">Select...</option>
-          <option>Residential</option>
-          <option>Commercial</option>
-          <option>Industrial</option>
-        </select>
-      </div>
+      <div class="field"><div class="field-label">Customer Name</div><input type="text" id="customerName"></div>
+      <div class="field"><div class="field-label">Phone</div><input type="tel" id="customerPhone"></div>
+      <div class="field"><div class="field-label">Email</div><input type="email" id="customerEmail"></div>
+      <div class="field"><div class="field-label">Address</div><textarea id="customerAddress"></textarea></div>
+      <div class="field"><div class="field-label">Property Type</div><select id="propertyType"><option>Residential</option><option>Commercial</option></select></div>
     </div>
   </div>
 
   <div class="section" id="section-2">
     <div class="section-header">
-      <div class="section-num">02 / 05</div>
       <div class="section-title">System Details</div>
-      <div class="section-sub">Equipment and installation specifics</div>
+      <div class="section-sub">Indoor and Outdoor Equipment</div>
     </div>
     <div class="field-group">
-      <div class="field">
-        <div class="field-label">System Type</div>
-        <select id="systemType">
-          <option value="">Select...</option>
-          <option>Split System</option>
-          <option>Multi-Split System</option>
-          <option>Cassette Unit</option>
-          <option>Ducted System</option>
-          <option>VRF / VRV System</option>
-          <option>Heat Pump</option>
-        </select>
-      </div>
-      <div class="field">
-        <div class="field-label">Outdoor Unit Location</div>
-        <input type="text" id="outdoorUnitLocation" placeholder="e.g. Rear of property, ground level">
-      </div>
-      <div class="field">
-        <div class="field-label">Outdoor Model No.</div>
-        <input type="text" id="outdoorModelNumber" placeholder="e.g. MXZ-3F68VF" autocomplete="off" autocorrect="off" autocapitalize="characters">
-      </div>
-      <div class="field">
-        <div class="field-label">Outdoor Serial No.</div>
-        <input type="text" id="outdoorSerialNumber" placeholder="Serial number" autocomplete="off" autocorrect="off" autocapitalize="characters">
-      </div>
-      <div class="field">
-        <div class="field-label">Electrical Supply</div>
-        <select id="electricalOption">
-          <option value="">Select...</option>
-          <option>Single Phase 230V</option>
-          <option>Three Phase 400V</option>
-          <option>Dedicated Circuit</option>
-          <option>Existing Circuit</option>
-        </select>
-      </div>
-      <div class="field">
-        <div class="field-label">Drain Type</div>
-        <select id="drain">
-          <option value="">Select...</option>
-          <option>Gravity Drain</option>
-          <option>Condensate Pump</option>
-          <option>External Drain</option>
-        </select>
-      </div>
-      <div class="field" style="border-bottom:none;">
-        <div class="field-label" style="margin-bottom:12px;">Indoor Unit(s)</div>
-        <div id="indoorUnitsList"></div>
-        <button type="button" class="add-unit-btn" onclick="addIndoorUnit()">+ Add Indoor Unit</button>
-      </div>
+      <div class="field"><div class="field-label">System Type</div><select id="systemType"><option>Split System</option><option>Multi-Split</option></select></div>
+      <div class="field"><div class="field-label">Outdoor Model</div><input type="text" id="outdoorModelNumber"></div>
+      <div class="field"><div class="field-label">Outdoor Serial</div><input type="text" id="outdoorSerialNumber"></div>
+      <div class="field"><div class="field-label">Outdoor Location</div><input type="text" id="outdoorUnitLocation"></div>
+      <div class="field"><div class="field-label">Indoor Unit(s)</div><div id="indoorUnitsList"></div><button type="button" class="add-unit-btn" onclick="addIndoorUnit()">+ Add Indoor Unit</button></div>
     </div>
   </div>
 
   <div class="section" id="section-3">
     <div class="section-header">
-      <div class="section-num">03 / 05</div>
       <div class="section-title">Test Results</div>
-      <div class="section-sub">Commissioning readings and checks</div>
+      <div class="section-sub">Commissioning readings</div>
     </div>
     <div class="field-group">
-      <div class="field">
-        <div class="field-label">Key Readings</div>
-        <div class="readings-grid" style="margin-top:6px;">
-          <div class="reading-card">
-            <div class="field-label">Test Pressure</div>
-            <input type="number" id="pressureValue" placeholder="0.0" inputmode="decimal">
-            <div class="reading-unit">Bar / PSI</div>
-          </div>
-          <div class="reading-card">
-            <div class="field-label">Vacuum / Micron</div>
-            <input type="number" id="micronReading" placeholder="0" inputmode="numeric">
-            <div class="reading-unit">Microns</div>
-          </div>
-          <div class="reading-card">
-            <div class="field-label">Running Current</div>
-            <input type="number" id="runningCurrent" placeholder="0.0" inputmode="decimal">
-            <div class="reading-unit">Amps</div>
-          </div>
-          <div class="reading-card">
-            <div class="field-label">Pipe Run</div>
-            <input type="number" id="pipeLength" placeholder="0" inputmode="decimal">
-            <div class="reading-unit">Metres</div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="field-label">Suction Line Size</div>
-        <div class="toggle-group" id="suctionLine">
-          <div class="toggle-btn" data-val='1/4"'>1/4"</div>
-          <div class="toggle-btn" data-val='3/8"'>3/8"</div>
-          <div class="toggle-btn" data-val='1/2"'>1/2"</div>
-          <div class="toggle-btn" data-val='5/8"'>5/8"</div>
-          <div class="toggle-btn" data-val='3/4"'>3/4"</div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="field-label">Liquid Line Size</div>
-        <div class="toggle-group" id="liquidLine">
-          <div class="toggle-btn" data-val='1/4"'>1/4"</div>
-          <div class="toggle-btn" data-val='3/8"'>3/8"</div>
-          <div class="toggle-btn" data-val='1/2"'>1/2"</div>
-          <div class="toggle-btn" data-val='5/8"'>5/8"</div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="field-label">Checks Completed</div>
-        <div class="toggle-group" id="checksGroup" style="flex-direction:column;gap:6px;margin-top:2px;">
-          <div class="toggle-btn check-toggle" data-key="pressureTest">Pressure Test</div>
-          <div class="toggle-btn check-toggle" data-key="vacuumTest">Vacuum Test</div>
-          <div class="toggle-btn check-toggle" data-key="leakTest">Leak Test</div>
-          <div class="toggle-btn check-toggle" data-key="controlsChecked">Controls / Thermostat Checked</div>
-          <div class="toggle-btn check-toggle" data-key="systemTested">Cooling &amp; Heating Tested</div>
-          <div class="toggle-btn check-toggle" data-key="customerDemo">Customer Demo Completed</div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="field-label">Engineer Notes</div>
-        <textarea id="engineerComments" placeholder="Any observations, additional work, or notes..."></textarea>
-      </div>
+      <div class="reading-card"><div class="field-label">Pressure (Bar)</div><input type="number" id="pressureValue" step="0.1"></div>
+      <div class="reading-card"><div class="field-label">Vacuum (Microns)</div><input type="number" id="micronReading"></div>
+      <div class="reading-card"><div class="field-label">Current (Amps)</div><input type="number" id="runningCurrent" step="0.1"></div>
+      <div class="field"><div class="field-label">Notes</div><textarea id="engineerComments"></textarea></div>
     </div>
   </div>
 
   <div class="section" id="section-4">
     <div class="section-header">
-      <div class="section-num">04 / 05</div>
       <div class="section-title">Photo Evidence</div>
-      <div class="section-sub">Tap each slot to take or upload a photo</div>
+      <div class="section-sub">Evidence for the report</div>
     </div>
     <div class="field-group">
-      <div class="field">
-        <div class="photo-grid">
-          <div class="photo-slot" id="slot-indoor">
-            <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')">
-            <div class="photo-slot-icon">📷</div>
-            <div class="photo-slot-label">Indoor Unit</div>
-          </div>
-          <div class="photo-slot" id="slot-outdoor">
-            <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')">
-            <div class="photo-slot-icon">📷</div>
-            <div class="photo-slot-label">Outdoor Unit</div>
-          </div>
-          <div class="photo-slot" id="slot-pipework">
-            <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')">
-            <div class="photo-slot-icon">📷</div>
-            <div class="photo-slot-label">Pipework / Trunking</div>
-          </div>
-          <div class="photo-slot" id="slot-electrical">
-            <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')">
-            <div class="photo-slot-icon">📷</div>
-            <div class="photo-slot-label">Electrical / Isolator</div>
-          </div>
-        </div>
+      <div class="photo-grid">
+        <div class="photo-slot" id="slot-indoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')">Indoor</div>
+        <div class="photo-slot" id="slot-outdoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')">Outdoor</div>
+        <div class="photo-slot" id="slot-pipework"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')">Pipework</div>
+        <div class="photo-slot" id="slot-electrical"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')">Electrical</div>
       </div>
     </div>
   </div>
 
   <div class="section" id="section-5">
     <div class="section-header">
-      <div class="section-num">05 / 05</div>
-      <div class="section-title">Job &amp; Sign-Off</div>
-      <div class="section-sub">Final details before generating the report</div>
+      <div class="section-title">Final Sign-Off</div>
+      <div class="section-sub">Job reference and signature</div>
     </div>
     <div class="field-group">
-      <div class="field" id="f-installDate">
-        <div class="field-label">Install Date <span class="req">*</span></div>
-        <input type="date" id="installDate">
-        <div class="field-error">Required</div>
-      </div>
-      <div class="field" id="f-jobRef">
-        <div class="field-label">Job Reference <span class="req">*</span></div>
-        <input type="text" id="jobRef" placeholder="e.g. AK-2026-001" autocomplete="off">
-        <div class="field-error">Required</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Customer Comments</div>
-        <textarea id="customerComments" placeholder="Any feedback from the customer..."></textarea>
-      </div>
-
+      <div class="field"><div class="field-label">Install Date</div><input type="date" id="installDate"></div>
+      <div class="field"><div class="field-label">Job Reference</div><input type="text" id="jobRef" placeholder="AK-2026-XXX"></div>
       <div class="field">
         <div class="field-label">Customer Signature</div>
-        <div class="signature-wrap">
-          <canvas id="signaturePad"></canvas>
-        </div>
-        <div class="sig-actions">
-          <button type="button" class="add-unit-btn" onclick="clearSignature()" style="margin-top:0;">Clear Signature</button>
-        </div>
+        <div class="signature-wrap"><canvas id="signaturePad"></canvas></div>
+        <button type="button" class="add-unit-btn" onclick="clearSignature()">Clear Signature</button>
       </div>
     </div>
   </div>
 
   <div class="submit-screen" id="submitScreen">
-    <div class="submit-icon">✓</div>
-    <div class="submit-title">Report Sent</div>
-    <div class="submit-sub">The commissioning report has been generated, saved to Drive, and emailed to the customer.</div>
-    <button class="btn-new" onclick="resetForm()">New Report</button>
+    <h2 style="color:var(--navy);">Report Generated!</h2>
+    <p>The PDF has been sent to the customer.</p>
+    <button class="btn btn-next" style="margin-top:20px;" onclick="location.reload()">New Report</button>
   </div>
 </div>
 
@@ -935,107 +258,46 @@
 </div>
 
 <script>
+  // !!! UPDATE THIS URL !!!
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0PkTD85HhHzlZXI1QHfHxC4RrX4kUpT079ZL9tvE1dWaRU2iZxN-y_hCiWy7cJXc/exec';
 
-  (function prefill() {
-    const p = new URLSearchParams(window.location.search);
-    const map = {
-      customer: 'customerName',
-      address:  'customerAddress',
-      phone:    'customerPhone',
-      email:    'customerEmail',
-      jobref:   'jobRef',
-      date:     'installDate',
-      system:   'systemType',
-      property: 'propertyType',
-    };
-    Object.entries(map).forEach(([param, fieldId]) => {
-      const val = p.get(param);
-      if (!val) return;
-      const el = document.getElementById(fieldId);
-      if (el) el.value = decodeURIComponent(val);
-    });
-  })();
-
-  let unitCount = 0;
-
-  function addIndoorUnit(location = '', modelNumber = '', serialNumber = '') {
-    unitCount++;
-    const list = document.getElementById('indoorUnitsList');
-    const div = document.createElement('div');
-    div.id = `unit-${unitCount}`;
-    div.className = 'unit-card';
-    div.innerHTML = `
-      <div class="unit-card-header">
-        <div class="unit-card-title">Indoor Unit ${unitCount}</div>
-        ${unitCount > 1 ? `<button type="button" class="unit-remove-btn" onclick="removeUnit(${unitCount})">×</button>` : ''}
-      </div>
-      <div>
-        <div class="field-label" style="margin-bottom:6px;">Location</div>
-        <input type="text" id="unit-loc-${unitCount}" value="${location}" class="unit-input" placeholder="e.g. Master bedroom">
-      </div>
-      <div class="unit-grid">
-        <div>
-          <div class="field-label" style="margin-bottom:6px;margin-top:8px;">Model No.</div>
-          <input type="text" id="unit-model-${unitCount}" value="${modelNumber}" class="unit-input" placeholder="Model" autocomplete="off" autocapitalize="characters">
-        </div>
-        <div>
-          <div class="field-label" style="margin-bottom:6px;margin-top:8px;">Serial No.</div>
-          <input type="text" id="unit-serial-${unitCount}" value="${serialNumber}" class="unit-input" placeholder="Serial" autocomplete="off" autocapitalize="characters">
-        </div>
-      </div>
-    `;
-    list.appendChild(div);
-  }
-
-  function removeUnit(n) {
-    const el = document.getElementById(`unit-${n}`);
-    if (el) el.remove();
-  }
-
-  addIndoorUnit();
-
-  const TOTAL_SECTIONS = 5;
   let currentSection = 1;
+  let unitCount = 0;
   const photos = {};
 
+  // Setup Date
   document.getElementById('installDate').valueAsDate = new Date();
 
-  function updateProgress() {
-    const pct = ((currentSection - 1) / TOTAL_SECTIONS) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
-    document.getElementById('stepLabel').textContent = `Step ${currentSection} of ${TOTAL_SECTIONS}`;
-
-    document.querySelectorAll('.step-dot').forEach((d, i) => {
-      d.classList.remove('active', 'done');
-      if (i + 1 === currentSection) d.classList.add('active');
-      if (i + 1 < currentSection) d.classList.add('done');
-    });
-
-    const btnNext = document.getElementById('btnNext');
-    if (currentSection === TOTAL_SECTIONS) {
-      btnNext.textContent = 'Generate Report ✓';
-      btnNext.className = 'btn btn-submit';
-    } else {
-      btnNext.textContent = 'Continue →';
-      btnNext.className = 'btn btn-next';
-    }
+  // Indoor Unit Logic
+  function addIndoorUnit() {
+    unitCount++;
+    const div = document.createElement('div');
+    div.className = 'unit-card';
+    div.id = `unit-block-${unitCount}`;
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;"><strong>Unit ${unitCount}</strong> <span onclick="document.getElementById('unit-block-${unitCount}').remove()">×</span></div>
+      <input type="text" class="u-loc" placeholder="Location" style="margin-top:8px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px;">
+        <input type="text" class="u-mod" placeholder="Model">
+        <input type="text" class="u-ser" placeholder="Serial">
+      </div>
+    `;
+    document.getElementById('indoorUnitsList').appendChild(div);
   }
+  addIndoorUnit();
 
-  function showSection(n) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    const sec = document.getElementById('section-' + n);
-    if (sec) sec.classList.add('active');
-    document.getElementById('navBar').style.display = 'flex';
-    document.getElementById('submitScreen').classList.remove('active');
-    window.scrollTo(0, 0);
-    updateProgress();
+  // Navigation Logic
+  function updateProgress() {
+    document.getElementById('progressFill').style.width = ((currentSection-1)/4)*100 + '%';
+    document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
+    document.getElementById('btnNext').textContent = currentSection === 5 ? 'Finish' : 'Continue →';
+    document.querySelectorAll('.step-dot').forEach((d, i) => {
+      d.className = i + 1 === currentSection ? 'step-dot active' : (i + 1 < currentSection ? 'step-dot done' : 'step-dot');
+    });
   }
 
   function nextSection() {
-    if (!validateSection(currentSection)) return;
-    if (currentSection < TOTAL_SECTIONS) {
+    if (currentSection < 5) {
       currentSection++;
       showSection(currentSection);
     } else {
@@ -1050,260 +312,112 @@
     }
   }
 
-  function validateSection(n) {
-    let valid = true;
-    const invalid = [];
-
-    const required = {
-      1: ['customerName','customerPhone','customerEmail','customerAddress'],
-      5: ['installDate','jobRef']
-    };
-
-    if (!required[n]) return true;
-
-    required[n].forEach(id => {
-      const el = document.getElementById(id);
-      const wrapper = document.getElementById('f-' + id);
-
-      if (!el) {
-        invalid.push(id + ' (missing field)');
-        valid = false;
-        return;
-      }
-
-      const value = (el.value || '').trim();
-      let ok = value !== '';
-
-      if (id === 'customerEmail' && value) {
-        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      }
-
-      if (wrapper) wrapper.classList.toggle('has-error', !ok);
-
-      if (!ok) {
-        invalid.push(id + ' = "' + value + '"');
-        valid = false;
-      }
-    });
-
-    if (!valid) {
-      alert('Fix these fields:\n\n' + invalid.join('\n'));
-    }
-
-    return valid;
+  function showSection(n) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + n).classList.add('active');
+    updateProgress();
+    window.scrollTo(0,0);
   }
 
-  document.querySelectorAll('.toggle-group:not(#checksGroup)').forEach(group => {
-    group.querySelectorAll('.toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      });
-    });
-  });
-
-  document.querySelectorAll('.check-toggle').forEach(btn => {
-    btn.addEventListener('click', () => btn.classList.toggle('selected'));
-  });
-
+  // Photo Logic with Resizer
   function handlePhoto(input, key, slotId) {
     const file = input.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = e => {
-      photos[key] = e.target.result;
-      const slot = document.getElementById(slotId);
-      const ex = slot.querySelector('img'); if (ex) ex.remove();
-      const exb = slot.querySelector('.remove-photo'); if (exb) exb.remove();
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      slot.appendChild(img);
-      const btn = document.createElement('button');
-      btn.className = 'remove-photo';
-      btn.innerHTML = '×';
-      btn.onclick = ev => {
-        ev.stopPropagation();
-        delete photos[key];
-        img.remove();
-        btn.remove();
-        input.value = '';
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const max = 1000;
+        let w = img.width, h = img.height;
+        if (w > h && w > max) { h *= max/w; w = max; } else if (h > max) { w *= max/h; h = max; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        photos[key] = dataUrl;
+        document.getElementById(slotId).innerHTML = `<img src="${dataUrl}">`;
       };
-      slot.appendChild(btn);
+      img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  function getToggleVal(groupId) {
-    const sel = document.querySelector('#' + groupId + ' .toggle-btn.selected');
-    return sel ? sel.dataset.val || sel.textContent.trim() : '';
-  }
+  // Signature Logic
+  const canvas = document.getElementById('signaturePad');
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
 
-  function getChecks() {
-    const checks = {};
-    document.querySelectorAll('.check-toggle').forEach(btn => {
-      checks[btn.dataset.key] = btn.classList.contains('selected') ? 'Pass' : 'Not checked';
-    });
-    return checks;
+  function resizeCanvas() {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    ctx.scale(ratio, ratio);
   }
+  window.addEventListener('resize', resizeCanvas);
+  setTimeout(resizeCanvas, 100);
 
-  function collectData() {
-    const checks = getChecks();
+  canvas.addEventListener('touchstart', e => { drawing = true; ctx.beginPath(); e.preventDefault(); }, {passive: false});
+  canvas.addEventListener('touchmove', e => {
+    if (!drawing) return;
+    const t = e.touches[0];
+    const r = canvas.getBoundingClientRect();
+    ctx.lineTo(t.clientX - r.left, t.clientY - r.top);
+    ctx.stroke();
+    e.preventDefault();
+  }, {passive: false});
+  canvas.addEventListener('touchend', () => drawing = false);
+
+  function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+  // Submit Form
+  async function submitForm() {
+    document.getElementById('loadingOverlay').classList.add('active');
+    
     const indoorUnits = [];
+    document.querySelectorAll('.unit-card').forEach(card => {
+      indoorUnits.push({
+        location: card.querySelector('.u-loc').value,
+        model: card.querySelector('.u-mod').value,
+        serial: card.querySelector('.u-ser').value
+      });
+    });
 
-    for (let i = 1; i <= unitCount; i++) {
-      const locEl = document.getElementById(`unit-loc-${i}`);
-      const modelEl = document.getElementById(`unit-model-${i}`);
-      const serialEl = document.getElementById(`unit-serial-${i}`);
-      if (locEl || modelEl || serialEl) {
-        indoorUnits.push({
-          location: locEl ? locEl.value.trim() : '',
-          modelNumber: modelEl ? modelEl.value.trim() : '',
-          serialNumber: serialEl ? serialEl.value.trim() : '',
-        });
-      }
-    }
-
-    return {
-      customerName: document.getElementById('customerName').value.trim(),
-      customerPhone: document.getElementById('customerPhone').value.trim(),
-      customerEmail: document.getElementById('customerEmail').value.trim(),
-      customerAddress: document.getElementById('customerAddress').value.trim(),
+    const payload = {
+      customerName: document.getElementById('customerName').value,
+      customerEmail: document.getElementById('customerEmail').value,
+      customerPhone: document.getElementById('customerPhone').value,
+      customerAddress: document.getElementById('customerAddress').value,
       propertyType: document.getElementById('propertyType').value,
       systemType: document.getElementById('systemType').value,
-      indoorUnits,
-      outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value.trim(),
-      outdoorModelNumber: document.getElementById('outdoorModelNumber').value.trim(),
-      outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value.trim(),
-      electricalOption: document.getElementById('electricalOption').value,
-      drain: document.getElementById('drain').value,
-      pressureValue: document.getElementById('pressureValue').value || '—',
-      micronReading: document.getElementById('micronReading').value || '—',
-      runningCurrent: document.getElementById('runningCurrent').value || '—',
-      pipeLength: document.getElementById('pipeLength').value || '—',
-      suctionLine: getToggleVal('suctionLine'),
-      liquidLine: getToggleVal('liquidLine'),
-      engineerComments: document.getElementById('engineerComments').value.trim() || 'No additional notes.',
+      outdoorModelNumber: document.getElementById('outdoorModelNumber').value,
+      outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value,
+      outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value,
+      pressureValue: document.getElementById('pressureValue').value,
+      micronReading: document.getElementById('micronReading').value,
+      runningCurrent: document.getElementById('runningCurrent').value,
+      engineerComments: document.getElementById('engineerComments').value,
       installDate: document.getElementById('installDate').value,
-      jobRef: document.getElementById('jobRef').value.trim(),
-      customerComments: document.getElementById('customerComments').value.trim() || 'None.',
-      photos,
-      signature: hasSignature() ? signatureCanvas.toDataURL('image/png') : '',
-      ...checks
+      jobRef: document.getElementById('jobRef').value,
+      indoorUnits: indoorUnits,
+      photos: photos,
+      signature: canvas.toDataURL()
     };
-  }
-
-  function submitForm() {
-    const data = collectData();
-    document.getElementById('loadingOverlay').classList.add('active');
 
     try {
-      const ok = navigator.sendBeacon(
-        SCRIPT_URL,
-        new Blob([JSON.stringify(data)], { type: 'text/plain;charset=utf-8' })
-      );
-
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(payload)
+      });
       document.getElementById('loadingOverlay').classList.remove('active');
-
-      if (!ok) {
-        alert('Submission failed before it left the browser.');
-        return;
-      }
-
-      document.getElementById('formBody').querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('formBody').style.display = 'none';
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
-      document.getElementById('progressFill').style.width = '100%';
-      window.scrollTo(0, 0);
-
-    } catch (err) {
+    } catch (e) {
+      alert("Error: " + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
-      alert('Something went wrong. Please check your connection and try again.');
-      console.error(err);
     }
   }
-
-  function resetForm() { location.reload(); }
-
-  const signatureCanvas = document.getElementById('signaturePad');
-  const signatureCtx = signatureCanvas.getContext('2d');
-  let isSigning = false;
-  let signatureStarted = false;
-
-  function resizeSignatureCanvas() {
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    const rect = signatureCanvas.getBoundingClientRect();
-    const existing = signatureStarted ? signatureCanvas.toDataURL('image/png') : null;
-
-    signatureCanvas.width = rect.width * ratio;
-    signatureCanvas.height = 180 * ratio;
-
-    signatureCtx.setTransform(1, 0, 0, 1, 0, 0);
-    signatureCtx.scale(ratio, ratio);
-    signatureCtx.lineWidth = 2;
-    signatureCtx.lineCap = 'round';
-    signatureCtx.lineJoin = 'round';
-    signatureCtx.strokeStyle = '#1a2e4a';
-
-    if (existing) {
-      const img = new Image();
-      img.onload = () => {
-        signatureCtx.drawImage(img, 0, 0, rect.width, 180);
-      };
-      img.src = existing;
-    }
-  }
-
-  function getSignaturePos(e) {
-    const rect = signatureCanvas.getBoundingClientRect();
-    const point = e.touches ? e.touches[0] : e;
-    return {
-      x: point.clientX - rect.left,
-      y: point.clientY - rect.top
-    };
-  }
-
-  function startSignature(e) {
-    isSigning = true;
-    signatureStarted = true;
-    const pos = getSignaturePos(e);
-    signatureCtx.beginPath();
-    signatureCtx.moveTo(pos.x, pos.y);
-  }
-
-  function drawSignature(e) {
-    if (!isSigning) return;
-    e.preventDefault();
-    const pos = getSignaturePos(e);
-    signatureCtx.lineTo(pos.x, pos.y);
-    signatureCtx.stroke();
-  }
-
-  function endSignature() {
-    isSigning = false;
-  }
-
-  function clearSignature() {
-    signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
-    signatureStarted = false;
-  }
-
-  function hasSignature() {
-    return signatureStarted;
-  }
-
-  signatureCanvas.addEventListener('mousedown', startSignature);
-  signatureCanvas.addEventListener('mousemove', drawSignature);
-  signatureCanvas.addEventListener('mouseup', endSignature);
-  signatureCanvas.addEventListener('mouseleave', endSignature);
-
-  signatureCanvas.addEventListener('touchstart', startSignature, { passive: true });
-  signatureCanvas.addEventListener('touchmove', drawSignature, { passive: false });
-  signatureCanvas.addEventListener('touchend', endSignature);
-
-  window.addEventListener('load', resizeSignatureCanvas);
-  window.addEventListener('resize', resizeSignatureCanvas);
-
-  updateProgress();
 </script>
 </body>
 </html>
