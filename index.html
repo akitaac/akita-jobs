@@ -87,67 +87,76 @@
     position: sticky;
     top: 75px;
     z-index: 98;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .step-dots { display: flex; gap: 6px; }
-  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: all 0.3s; }
   .step-dot.active { background: var(--sky); transform: scale(1.25); }
   .step-dot.done   { background: var(--blue); }
 
-  .step-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: var(--sky); }
+  .step-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); }
 
   .form-body { padding-bottom: 120px; }
-  .section { display: none; animation: fadeUp 0.3s ease; }
+  .section { display: none; animation: fadeUp 0.28s ease; }
   .section.active { display: block; }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-  .section-header { background: var(--navy); padding: 24px 20px 20px; color: white; }
-  .section-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; }
-  .section-sub { font-size: 12px; opacity: 0.6; }
+  .section-header { background: var(--navy); padding: 24px 20px 20px; position: relative; overflow: hidden; }
+  .section-num { font-family: 'Montserrat'; font-size: 9.5px; font-weight: 700; color: var(--sky); letter-spacing: 2.5px; margin-bottom: 6px; }
+  .section-title { font-family: 'Montserrat'; font-size: 22px; font-weight: 800; color: white; line-height: 1.1; }
+  .section-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 5px; }
 
-  .field-group { padding: 10px 20px; }
-  .field { padding: 15px 0; border-bottom: 1px solid var(--border2); }
-  .field-label { font-family: 'Montserrat', font-weight: 700; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  
+  .field-group { padding: 4px 20px; }
+  .field { padding: 14px 0; border-bottom: 1px solid var(--border2); }
+  .field-label { font-family: 'Montserrat'; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+
   input, select, textarea { 
-    width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 4px; font-size: 15px;
+    width: 100%; background: white; border: 1.5px solid var(--border); padding: 12px 14px; font-family: 'Open Sans'; font-size: 15px; border-radius: 0; outline: none; 
   }
+  input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
 
-  .reading-card { background: var(--navy); padding: 15px; border-radius: 8px; margin-bottom: 10px; color: white; }
-  .reading-card input { background: transparent; border: none; border-bottom: 2px solid var(--blue); color: white; font-size: 24px; font-weight: 800; }
+  .readings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .reading-card { background: var(--navy); padding: 14px 12px; position: relative; }
+  .reading-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+  .reading-card .field-label { color: rgba(255,255,255,0.45); }
+  .reading-card input { background: transparent; border: none; border-bottom: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 24px; font-weight: 800; padding: 4px 0; }
+  .reading-unit { font-size: 9px; color: rgba(255,255,255,0.28); text-transform: uppercase; margin-top: 4px; font-weight: 600; }
 
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .photo-slot { aspect-ratio: 4/3; background: #eef5fb; border: 2px dashed var(--border); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .photo-slot input { position: absolute; opacity: 0; width: 100%; height: 100%; }
-  .photo-slot img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+  .photo-slot { aspect-ratio: 4/3; background: var(--navy); border: 2px dashed rgba(46,127,191,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .photo-slot input { position: absolute; inset: 0; opacity: 0; z-index: 2; cursor: pointer; }
+  .photo-slot-icon { font-size: 22px; opacity: 0.3; }
+  .photo-slot-label { font-family: 'Montserrat'; font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); text-align: center; }
+  .photo-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
-  .signature-wrap { background: white; border: 1.5px solid var(--border); margin-top: 10px; }
-  #signaturePad { width: 100%; height: 200px; touch-action: none; }
+  .signature-wrap { background: white; border: 1.5px solid var(--border); padding: 10px; margin-top: 10px; }
+  #signaturePad { width: 100%; height: 180px; background: #fff; touch-action: none; border: 1px solid var(--border2); }
 
-  .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px 20px; display: flex; gap: 10px; border-top: 2px solid var(--border); z-index: 1000; }
-  .btn { flex: 1; padding: 16px; font-family: 'Montserrat'; font-weight: 700; border: none; border-radius: 4px; text-transform: uppercase; cursor: pointer; }
-  .btn-back { background: var(--off); color: var(--muted); flex: 0 0 70px; }
+  .unit-card { background: white; border: 1.5px solid var(--border); border-left: 4px solid var(--navy); padding: 14px; margin-bottom: 8px; }
+  .add-unit-btn { width: 100%; padding: 13px; background: transparent; border: 1.5px dashed var(--blue); color: var(--blue); font-family: 'Montserrat'; font-weight: 700; font-size: 11px; text-transform: uppercase; margin-top: 4px; }
+
+  .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 2px solid var(--border); padding: 12px 20px; display: flex; gap: 10px; z-index: 100; box-shadow: 0 -4px 20px rgba(26,46,74,0.08); }
+  .btn { flex: 1; padding: 15px; font-family: 'Montserrat'; font-weight: 700; font-size: 11.5px; border: none; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+  .btn-back { background: var(--off); color: var(--muted); border: 1.5px solid var(--border); flex: 0 0 80px; font-size: 18px; }
   .btn-next { background: var(--navy); color: white; }
   .btn-submit { background: var(--success); color: white; }
 
-  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(26,46,74,0.95); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; color: var(--sky); }
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(26,46,74,0.9); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
   .loading-overlay.active { display: flex; }
-  .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--sky); border-radius: 50%; animation: spin 1s linear infinite; }
+  .spinner { width: 48px; height: 48px; border: 3px solid rgba(184,217,240,0.2); border-top-color: var(--sky); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .unit-card { background: white; padding: 15px; border: 1px solid var(--border); border-left: 5px solid var(--navy); margin-bottom: 10px; }
-  .add-unit-btn { width: 100%; padding: 12px; border: 2px dashed var(--blue); background: transparent; color: var(--blue); font-weight: 700; margin-top: 10px; }
   
-  .submit-screen { display: none; text-align: center; padding: 60px 20px; }
-  .submit-screen.active { display: block; }
+  .submit-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 40px; }
+  .submit-screen.active { display: flex; }
 </style>
 </head>
 <body>
 
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
-  <p style="margin-top: 15px; font-weight: 700; letter-spacing: 1px;">GENERATING REPORT...</p>
+  <div style="color:var(--sky); font-family:'Montserrat'; font-weight:700; letter-spacing:2px; font-size:10px;">GENERATING REPORT...</div>
 </div>
 
 <div class="app-header">
@@ -163,11 +172,7 @@
 
 <div class="step-bar">
   <div class="step-dots" id="stepDots">
-    <div class="step-dot active"></div>
-    <div class="step-dot"></div>
-    <div class="step-dot"></div>
-    <div class="step-dot"></div>
-    <div class="step-dot"></div>
+    <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
   </div>
   <div class="step-label" id="stepLabel">Step 1 of 5</div>
 </div>
@@ -175,68 +180,79 @@
 <div class="form-body" id="formBody">
   <div class="section active" id="section-1">
     <div class="section-header">
+      <div class="section-num">01 / 05</div>
       <div class="section-title">Customer Details</div>
       <div class="section-sub">Who is this installation for?</div>
     </div>
     <div class="field-group">
-      <div class="field"><div class="field-label">Customer Name</div><input type="text" id="customerName"></div>
-      <div class="field"><div class="field-label">Phone</div><input type="tel" id="customerPhone"></div>
-      <div class="field"><div class="field-label">Email</div><input type="email" id="customerEmail"></div>
-      <div class="field"><div class="field-label">Address</div><textarea id="customerAddress"></textarea></div>
+      <div class="field"><div class="field-label">Customer Name</div><input type="text" id="customerName" placeholder="Full name"></div>
+      <div class="field"><div class="field-label">Phone Number</div><input type="tel" id="customerPhone" placeholder="07..."></div>
+      <div class="field"><div class="field-label">Email Address</div><input type="email" id="customerEmail" placeholder="customer@email.com"></div>
+      <div class="field"><div class="field-label">Installation Address</div><textarea id="customerAddress" placeholder="Full address"></textarea></div>
       <div class="field"><div class="field-label">Property Type</div><select id="propertyType"><option>Residential</option><option>Commercial</option></select></div>
     </div>
   </div>
 
   <div class="section" id="section-2">
     <div class="section-header">
+      <div class="section-num">02 / 05</div>
       <div class="section-title">System Details</div>
-      <div class="section-sub">Indoor and Outdoor Equipment</div>
+      <div class="section-sub">Outdoor and Indoor Units</div>
     </div>
     <div class="field-group">
-      <div class="field"><div class="field-label">System Type</div><select id="systemType"><option>Split System</option><option>Multi-Split</option></select></div>
-      <div class="field"><div class="field-label">Outdoor Model</div><input type="text" id="outdoorModelNumber"></div>
-      <div class="field"><div class="field-label">Outdoor Serial</div><input type="text" id="outdoorSerialNumber"></div>
-      <div class="field"><div class="field-label">Outdoor Location</div><input type="text" id="outdoorUnitLocation"></div>
-      <div class="field"><div class="field-label">Indoor Unit(s)</div><div id="indoorUnitsList"></div><button type="button" class="add-unit-btn" onclick="addIndoorUnit()">+ Add Indoor Unit</button></div>
+      <div class="field"><div class="field-label">System Type</div><select id="systemType"><option>Split System</option><option>Multi-Split</option><option>Heat Pump</option></select></div>
+      <div class="field"><div class="field-label">Outdoor Model No.</div><input type="text" id="outdoorModelNumber"></div>
+      <div class="field"><div class="field-label">Outdoor Serial No.</div><input type="text" id="outdoorSerialNumber"></div>
+      <div class="field"><div class="field-label">Outdoor Unit Location</div><input type="text" id="outdoorUnitLocation" placeholder="e.g. Rear Garden"></div>
+      <div class="field" style="border:none;">
+        <div class="field-label">Indoor Unit(s)</div>
+        <div id="indoorUnitsList"></div>
+        <button type="button" class="add-unit-btn" onclick="addIndoorUnit()">+ Add Indoor Unit</button>
+      </div>
     </div>
   </div>
 
   <div class="section" id="section-3">
     <div class="section-header">
+      <div class="section-num">03 / 05</div>
       <div class="section-title">Test Results</div>
-      <div class="section-sub">Commissioning readings</div>
+      <div class="section-sub">Final Readings</div>
     </div>
     <div class="field-group">
-      <div class="reading-card"><div class="field-label">Pressure (Bar)</div><input type="number" id="pressureValue" step="0.1"></div>
-      <div class="reading-card"><div class="field-label">Vacuum (Microns)</div><input type="number" id="micronReading"></div>
-      <div class="reading-card"><div class="field-label">Current (Amps)</div><input type="number" id="runningCurrent" step="0.1"></div>
-      <div class="field"><div class="field-label">Notes</div><textarea id="engineerComments"></textarea></div>
+      <div class="readings-grid">
+        <div class="reading-card"><div class="field-label">Pressure</div><input type="number" id="pressureValue" placeholder="0.0"><div class="reading-unit">Bar / PSI</div></div>
+        <div class="reading-card"><div class="field-label">Microns</div><input type="number" id="micronReading" placeholder="0"><div class="reading-unit">Microns</div></div>
+        <div class="reading-card"><div class="field-label">Current</div><input type="number" id="runningCurrent" placeholder="0.0"><div class="reading-unit">Amps</div></div>
+      </div>
+      <div class="field"><div class="field-label">Engineer Notes</div><textarea id="engineerComments" placeholder="Additional notes..."></textarea></div>
     </div>
   </div>
 
   <div class="section" id="section-4">
     <div class="section-header">
+      <div class="section-num">04 / 05</div>
       <div class="section-title">Photo Evidence</div>
-      <div class="section-sub">Evidence for the report</div>
+      <div class="section-sub">Tap to take photos</div>
     </div>
     <div class="field-group">
       <div class="photo-grid">
-        <div class="photo-slot" id="slot-indoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')">Indoor</div>
-        <div class="photo-slot" id="slot-outdoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')">Outdoor</div>
-        <div class="photo-slot" id="slot-pipework"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')">Pipework</div>
-        <div class="photo-slot" id="slot-electrical"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')">Electrical</div>
+        <div class="photo-slot" id="slot-indoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Indoor Unit</div></div>
+        <div class="photo-slot" id="slot-outdoor"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Outdoor Unit</div></div>
+        <div class="photo-slot" id="slot-pipework"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Pipework</div></div>
+        <div class="photo-slot" id="slot-electrical"><input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Electrical</div></div>
       </div>
     </div>
   </div>
 
   <div class="section" id="section-5">
     <div class="section-header">
-      <div class="section-title">Final Sign-Off</div>
-      <div class="section-sub">Job reference and signature</div>
+      <div class="section-num">05 / 05</div>
+      <div class="section-title">Sign-Off</div>
+      <div class="section-sub">Final validation</div>
     </div>
     <div class="field-group">
       <div class="field"><div class="field-label">Install Date</div><input type="date" id="installDate"></div>
-      <div class="field"><div class="field-label">Job Reference</div><input type="text" id="jobRef" placeholder="AK-2026-XXX"></div>
+      <div class="field"><div class="field-label">Job Reference</div><input type="text" id="jobRef" placeholder="AK-2026-..."></div>
       <div class="field">
         <div class="field-label">Customer Signature</div>
         <div class="signature-wrap"><canvas id="signaturePad"></canvas></div>
@@ -246,9 +262,9 @@
   </div>
 
   <div class="submit-screen" id="submitScreen">
-    <h2 style="color:var(--navy);">Report Generated!</h2>
-    <p>The PDF has been sent to the customer.</p>
-    <button class="btn btn-next" style="margin-top:20px;" onclick="location.reload()">New Report</button>
+    <div style="font-size: 50px; color: var(--success);">✓</div>
+    <div class="section-title" style="color:var(--navy); margin-top:20px;">Report Sent</div>
+    <button class="add-unit-btn" style="width:200px; margin-top:30px;" onclick="location.reload()">New Report</button>
   </div>
 </div>
 
@@ -258,42 +274,51 @@
 </div>
 
 <script>
-  // !!! UPDATE THIS URL !!!
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0PkTD85HhHzlZXI1QHfHxC4RrX4kUpT079ZL9tvE1dWaRU2iZxN-y_hCiWy7cJXc/exec';
-
+  
   let currentSection = 1;
   let unitCount = 0;
   const photos = {};
 
-  // Setup Date
+  // Init Date
   document.getElementById('installDate').valueAsDate = new Date();
 
-  // Indoor Unit Logic
   function addIndoorUnit() {
     unitCount++;
     const div = document.createElement('div');
     div.className = 'unit-card';
-    div.id = `unit-block-${unitCount}`;
+    div.id = `unit-row-${unitCount}`;
     div.innerHTML = `
-      <div style="display:flex;justify-content:space-between;"><strong>Unit ${unitCount}</strong> <span onclick="document.getElementById('unit-block-${unitCount}').remove()">×</span></div>
-      <input type="text" class="u-loc" placeholder="Location" style="margin-top:8px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px;">
-        <input type="text" class="u-mod" placeholder="Model">
-        <input type="text" class="u-ser" placeholder="Serial">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span style="font-family:'Montserrat'; font-weight:700; font-size:10px; color:var(--navy);">INDOOR UNIT ${unitCount}</span>
+        ${unitCount > 1 ? `<span onclick="document.getElementById('unit-row-${unitCount}').remove()">×</span>` : ''}
+      </div>
+      <input type="text" class="u-loc" placeholder="Location" style="margin-bottom:5px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+        <input type="text" class="u-mod" placeholder="Model No.">
+        <input type="text" class="u-ser" placeholder="Serial No.">
       </div>
     `;
     document.getElementById('indoorUnitsList').appendChild(div);
   }
   addIndoorUnit();
 
-  // Navigation Logic
   function updateProgress() {
-    document.getElementById('progressFill').style.width = ((currentSection-1)/4)*100 + '%';
+    const pct = ((currentSection - 1) / 4) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('btnBack').style.display = currentSection > 1 ? 'block' : 'none';
-    document.getElementById('btnNext').textContent = currentSection === 5 ? 'Finish' : 'Continue →';
+    document.getElementById('stepLabel').textContent = `Step ${currentSection} of 5`;
     document.querySelectorAll('.step-dot').forEach((d, i) => {
-      d.className = i + 1 === currentSection ? 'step-dot active' : (i + 1 < currentSection ? 'step-dot done' : 'step-dot');
+      d.className = i+1 === currentSection ? 'step-dot active' : (i+1 < currentSection ? 'step-dot done' : 'step-dot');
     });
+    const nextBtn = document.getElementById('btnNext');
+    if (currentSection === 5) {
+      nextBtn.textContent = 'Generate Report ✓';
+      nextBtn.className = 'btn btn-submit';
+    } else {
+      nextBtn.textContent = 'Continue →';
+      nextBtn.className = 'btn btn-next';
+    }
   }
 
   function nextSection() {
@@ -319,7 +344,6 @@
     window.scrollTo(0,0);
   }
 
-  // Photo Logic with Resizer
   function handlePhoto(input, key, slotId) {
     const file = input.files[0];
     if (!file) return;
@@ -333,43 +357,35 @@
         if (w > h && w > max) { h *= max/w; w = max; } else if (h > max) { w *= max/h; h = max; }
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-        photos[key] = dataUrl;
-        document.getElementById(slotId).innerHTML = `<img src="${dataUrl}">`;
+        photos[key] = canvas.toDataURL('image/jpeg', 0.7);
+        document.getElementById(slotId).innerHTML = `<img src="${photos[key]}">`;
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 
-  // Signature Logic
-  const canvas = document.getElementById('signaturePad');
-  const ctx = canvas.getContext('2d');
-  let drawing = false;
-
-  function resizeCanvas() {
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-    ctx.scale(ratio, ratio);
+  // SIGNATURE
+  const sigCanvas = document.getElementById('signaturePad');
+  const sigCtx = sigCanvas.getContext('2d');
+  let sigDrawing = false;
+  function resizeSig() {
+    const r = sigCanvas.getBoundingClientRect();
+    sigCanvas.width = r.width; sigCanvas.height = r.height;
   }
-  window.addEventListener('resize', resizeCanvas);
-  setTimeout(resizeCanvas, 100);
+  window.addEventListener('resize', resizeSig);
+  setTimeout(resizeSig, 200);
 
-  canvas.addEventListener('touchstart', e => { drawing = true; ctx.beginPath(); e.preventDefault(); }, {passive: false});
-  canvas.addEventListener('touchmove', e => {
-    if (!drawing) return;
-    const t = e.touches[0];
-    const r = canvas.getBoundingClientRect();
-    ctx.lineTo(t.clientX - r.left, t.clientY - r.top);
-    ctx.stroke();
+  sigCanvas.addEventListener('touchstart', e => { sigDrawing = true; sigCtx.beginPath(); e.preventDefault(); }, {passive:false});
+  sigCanvas.addEventListener('touchmove', e => {
+    if (!sigDrawing) return;
+    const t = e.touches[0], r = sigCanvas.getBoundingClientRect();
+    sigCtx.lineWidth = 2; sigCtx.lineTo(t.clientX - r.left, t.clientY - r.top); sigCtx.stroke();
     e.preventDefault();
-  }, {passive: false});
-  canvas.addEventListener('touchend', () => drawing = false);
+  }, {passive:false});
+  sigCanvas.addEventListener('touchend', () => sigDrawing = false);
+  function clearSignature() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
 
-  function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-  // Submit Form
   async function submitForm() {
     document.getElementById('loadingOverlay').classList.add('active');
     
@@ -400,7 +416,7 @@
       jobRef: document.getElementById('jobRef').value,
       indoorUnits: indoorUnits,
       photos: photos,
-      signature: canvas.toDataURL()
+      signature: sigCanvas.toDataURL()
     };
 
     try {
@@ -414,7 +430,7 @@
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
     } catch (e) {
-      alert("Error: " + e.message);
+      alert("Submission Error: " + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
     }
   }
