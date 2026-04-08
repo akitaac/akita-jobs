@@ -26,12 +26,7 @@
     --success:#2a9d6f;
   }
 
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
   html,body{
     background:var(--off);
@@ -42,52 +37,45 @@
     overscroll-behavior:none;
   }
 
-  /* Password Overlay Styles */
-  #passwordOverlay {
-    position:fixed; 
-    inset:0; 
-    background:var(--navy); 
-    z-index:9999; 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center; 
-    justify-content:center; 
-    padding:30px;
-    text-align: center;
+  /* ── PASSWORD OVERLAY ── */
+  #passwordOverlay{
+    position:fixed;inset:0;
+    background:var(--navy);
+    z-index:9999;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:30px;text-align:center;
   }
 
+  /* ── HEADER ── */
   .app-header{
     background:var(--navy);
     padding:0 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:82px;
-    position:sticky;
-    top:0;
-    z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    height:90px;
+    position:sticky;top:0;z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.15);
   }
 
   .app-header::after{
-    content:'';
-    position:absolute;
-    bottom:0; left:0; right:0;
-    height:3px;
+    content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
     background:linear-gradient(90deg,var(--blue) 0%,var(--sky) 60%,transparent 100%);
   }
 
   .header-logo{
-    display:flex;
-    align-items:center;
-    min-width:160px;
+    display:flex;align-items:center;
+    /* Give it plenty of room */
+    flex:1;
+    min-width:0;
   }
 
+  /* THE KEY FIX — larger logo, no filter inversion */
   .header-logo img{
-    height:60px;
+    height:72px;
     width:auto;
     display:block;
     object-fit:contain;
+    /* Don't invert — the husky logo has colour */
     filter:none !important;
     -webkit-filter:none !important;
   }
@@ -103,685 +91,242 @@
     padding:8px 12px;
     white-space:nowrap;
     border-radius:2px;
+    flex-shrink:0;
   }
 
-  .progress-wrap{
-    background:var(--navy2);
-    height:3px;
-    position:sticky;
-    top:82px;
-    z-index:99;
-  }
-
-  .progress-fill{
-    height:100%;
-    background:var(--sky);
-    transition:width 0.35s ease;
-    width:0%;
-  }
+  /* ── PROGRESS ── */
+  .progress-wrap{background:var(--navy2);height:3px;position:sticky;top:90px;z-index:99;}
+  .progress-fill{height:100%;background:var(--sky);transition:width 0.35s ease;width:0%;}
 
   .step-bar{
-    background:var(--navy);
-    padding:10px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:85px;
-    z-index:98;
+    background:var(--navy);padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:93px;z-index:98;
     border-bottom:1px solid rgba(255,255,255,0.06);
   }
 
-  .step-dots{ display:flex; gap:6px; }
-
-  .step-dot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.2);
-    transition:all 0.3s;
-  }
-
-  .step-dot.active{
-    background:var(--sky);
-    transform:scale(1.25);
-  }
-
-  .step-dot.done{
-    background:var(--blue);
-  }
+  .step-dots{display:flex;gap:6px;}
+  .step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.3s;}
+  .step-dot.active{background:var(--sky);transform:scale(1.25);}
+  .step-dot.done{background:var(--blue);}
 
   .step-label{
-    font-family:'Montserrat',sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:var(--sky);
+    font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--sky);
   }
 
-  .form-body{
-    padding-bottom:120px;
-  }
+  /* ── SECTIONS ── */
+  .form-body{padding-bottom:120px;}
+  .section{display:none;animation:fadeUp 0.28s ease;}
+  .section.active{display:block;}
 
-  .section{
-    display:none;
-    animation:fadeUp 0.28s ease;
-  }
-
-  .section.active{
-    display:block;
-  }
-
-  @keyframes fadeUp{
-    from{ opacity:0; transform:translateY(10px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
   .section-header{
-    background:var(--navy);
-    padding:24px 20px 20px;
-    position:relative;
-    overflow:hidden;
+    background:var(--navy);padding:24px 20px 20px;
+    position:relative;overflow:hidden;
   }
 
   .section-header::before{
-    content:'';
-    position:absolute;
-    top:0; right:0;
-    width:0; height:0;
-    border-style:solid;
+    content:'';position:absolute;top:0;right:0;
+    width:0;height:0;border-style:solid;
     border-width:0 80px 80px 0;
     border-color:transparent rgba(184,217,240,0.1) transparent transparent;
   }
 
-  .section-num{
-    font-family:'Montserrat',sans-serif;
-    font-size:9.5px;
-    font-weight:700;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    color:var(--sky);
-    margin-bottom:6px;
-  }
+  .section-num{font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--sky);margin-bottom:6px;}
+  .section-title{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--white);letter-spacing:-0.5px;line-height:1.1;}
+  .section-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-top:5px;}
 
-  .section-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:22px;
-    font-weight:800;
-    color:var(--white);
-    letter-spacing:-0.5px;
-    line-height:1.1;
-  }
-
-  .section-sub{
-    font-size:12px;
-    color:rgba(255,255,255,0.45);
-    margin-top:5px;
-  }
-
-  .field-group{
-    padding:4px 20px;
-  }
-
-  .field{
-    padding:14px 0;
-    border-bottom:1px solid var(--border2);
-  }
-
-  .field:last-child{
-    border-bottom:none;
-  }
+  /* ── FIELDS ── */
+  .field-group{padding:4px 20px;}
+  .field{padding:14px 0;border-bottom:1px solid var(--border2);}
+  .field:last-child{border-bottom:none;}
 
   .field-label{
-    font-family:'Montserrat',sans-serif;
-    font-size:9.5px;
-    font-weight:700;
-    letter-spacing:1.8px;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:8px;
-    display:flex;
-    align-items:center;
-    gap:6px;
+    font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;
+    letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);
+    margin-bottom:8px;display:flex;align-items:center;gap:6px;
   }
 
-  .req{
-    color:var(--blue);
-    font-size:12px;
+  .req{color:var(--blue);font-size:12px;}
+
+  input[type="text"],input[type="email"],input[type="tel"],
+  input[type="number"],input[type="date"],input[type="password"],
+  select,textarea{
+    width:100%;background:var(--white);border:1.5px solid var(--border);
+    color:var(--text);font-family:'Open Sans',sans-serif;font-size:15px;
+    padding:12px 14px;border-radius:0;outline:none;
+    appearance:none;-webkit-appearance:none;
+    transition:border-color 0.2s,box-shadow 0.2s;
   }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="date"],
-  input[type="password"],
-  select,
-  textarea{
-    width:100%;
-    background:var(--white);
-    border:1.5px solid var(--border);
-    color:var(--text);
-    font-family:'Open Sans',sans-serif;
-    font-size:15px;
-    padding:12px 14px;
-    border-radius:0;
-    outline:none;
-    appearance:none;
-    -webkit-appearance:none;
-    transition:border-color 0.2s, box-shadow 0.2s;
-  }
-
-  input:focus, select:focus, textarea:focus{
-    border-color:var(--blue);
-    box-shadow:0 0 0 3px rgba(46,127,191,0.1);
-  }
-
-  input::placeholder, textarea::placeholder{
-    color:#b0c4d8;
-  }
-
-  textarea{
-    min-height:90px;
-    resize:vertical;
-    line-height:1.5;
-  }
+  input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,127,191,0.1);}
+  input::placeholder,textarea::placeholder{color:#b0c4d8;}
+  textarea{min-height:90px;resize:vertical;line-height:1.5;}
 
   select{
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232e7fbf' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;
-    background-position:right 14px center;
-    background-color:var(--white);
-    padding-right:36px;
-    cursor:pointer;
+    background-repeat:no-repeat;background-position:right 14px center;
+    background-color:var(--white);padding-right:36px;cursor:pointer;
   }
 
-  .field.has-error input,
-  .field.has-error select,
-  .field.has-error textarea{
-    border-color:var(--error);
-  }
+  .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--error);}
+  .field-error{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;color:var(--error);margin-top:6px;display:none;}
+  .field.has-error .field-error{display:block;}
 
-  .field-error{
-    font-family:'Montserrat',sans-serif;
-    font-size:10px;
-    font-weight:600;
-    color:var(--error);
-    margin-top:6px;
-    display:none;
-  }
-
-  .field.has-error .field-error{
-    display:block;
-  }
-
-  .toggle-group{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-  }
+  /* ── TOGGLE BUTTONS ── */
+  .toggle-group{display:flex;gap:8px;flex-wrap:wrap;}
 
   .toggle-btn{
-    font-family:'Montserrat',sans-serif;
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:0.5px;
-    padding:9px 16px;
-    background:var(--white);
-    border:1.5px solid var(--border);
-    color:var(--muted);
-    cursor:pointer;
-    transition:all 0.15s;
-    user-select:none;
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:0.5px;padding:9px 16px;background:var(--white);
+    border:1.5px solid var(--border);color:var(--muted);
+    cursor:pointer;transition:all 0.15s;user-select:none;
   }
 
-  .toggle-btn.selected{
-    background:var(--blue-dim);
-    border-color:var(--blue);
-    color:var(--navy);
-    font-weight:700;
-  }
+  .toggle-btn.selected{background:var(--blue-dim);border-color:var(--blue);color:var(--navy);font-weight:700;}
 
-  .check-toggle{
-    width:100%;
-    text-align:left;
-    padding:12px 14px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
+  .check-toggle{width:100%;text-align:left;padding:12px 14px;display:flex;align-items:center;gap:12px;}
 
   .check-toggle::before{
-    content:'';
-    width:20px;
-    height:20px;
-    border:1.5px solid var(--border);
-    background:var(--white);
-    flex-shrink:0;
-    transition:all 0.15s;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    content:'';width:20px;height:20px;border:1.5px solid var(--border);
+    background:var(--white);flex-shrink:0;transition:all 0.15s;
+    display:flex;align-items:center;justify-content:center;
   }
 
-  .check-toggle.selected{
-    background:var(--blue-dim);
-    border-color:var(--blue);
-    color:var(--navy);
-  }
+  .check-toggle.selected{background:var(--blue-dim);border-color:var(--blue);color:var(--navy);}
+  .check-toggle.selected::before{background:var(--blue);border-color:var(--blue);content:'✓';color:var(--white);font-size:12px;font-weight:700;}
 
-  .check-toggle.selected::before{
-    background:var(--blue);
-    border-color:var(--blue);
-    content:'✓';
-    color:var(--white);
-    font-size:12px;
-    font-weight:700;
-  }
+  /* ── READINGS ── */
+  .readings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
 
-  .readings-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:6px;
-  }
-
-  .reading-card{
-    background:var(--navy);
-    padding:14px 12px 12px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .reading-card::before{
-    content:'';
-    position:absolute;
-    top:0; left:0; right:0;
-    height:3px;
-    background:var(--blue);
-  }
-
-  .reading-card .field-label{
-    color:rgba(255,255,255,0.45);
-    margin-bottom:6px;
-  }
-
+  .reading-card{background:var(--navy);padding:14px 12px 12px;position:relative;overflow:hidden;}
+  .reading-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);}
+  .reading-card .field-label{color:rgba(255,255,255,0.45);margin-bottom:6px;}
   .reading-card input{
-    background:transparent;
-    border:none;
-    border-bottom:1.5px solid rgba(255,255,255,0.2);
-    padding:4px 0;
-    font-family:'Montserrat',sans-serif;
-    font-size:24px;
-    font-weight:800;
-    color:var(--white);
-    letter-spacing:-0.5px;
-    box-shadow:none;
+    background:transparent;border:none;border-bottom:1.5px solid rgba(255,255,255,0.2);
+    padding:4px 0;font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;
+    color:var(--white);letter-spacing:-0.5px;box-shadow:none;
   }
+  .reading-card input:focus{border-bottom-color:var(--sky);box-shadow:none;}
+  .reading-card input::placeholder{color:rgba(255,255,255,0.2);}
+  .reading-unit{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-top:4px;}
 
-  .reading-card input:focus{
-    border-bottom-color:var(--sky);
-    box-shadow:none;
-  }
-
-  .reading-card input::placeholder{
-    color:rgba(255,255,255,0.2);
-  }
-
-  .reading-unit{
-    font-family:'Montserrat',sans-serif;
-    font-size:9px;
-    font-weight:600;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.28);
-    margin-top:4px;
-  }
-
-  .photo-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
+  /* ── PHOTOS ── */
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
   .photo-slot{
-    aspect-ratio:4/3;
-    background:var(--navy);
-    border:2px dashed rgba(46,127,191,0.4);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-    transition:border-color 0.2s;
+    aspect-ratio:4/3;background:var(--navy);border:2px dashed rgba(46,127,191,0.4);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;cursor:pointer;position:relative;overflow:hidden;transition:border-color 0.2s;
   }
 
-  .photo-slot:active{
-    border-color:var(--blue);
-  }
+  .photo-slot:active{border-color:var(--blue);}
+  .photo-slot input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;padding:0;border:none;background:none;z-index:3;}
+  .photo-slot-icon{font-size:22px;opacity:0.3;}
+  .photo-slot-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);text-align:center;padding:0 8px;}
+  .photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .remove-photo{position:absolute;top:6px;right:6px;background:var(--navy);border:none;color:white;width:26px;height:26px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:4;}
 
-  .photo-slot input[type="file"]{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    cursor:pointer;
-    width:100%;
-    height:100%;
-    padding:0;
-    border:none;
-    background:none;
-    z-index:3;
-  }
+  /* ── SIGNATURE ── */
+  .signature-wrap{background:var(--white);border:1.5px solid var(--border);padding:10px;margin-top:10px;}
+  #signaturePad{width:100%;height:180px;background:#fff;touch-action:none;border:1px solid var(--border2);display:block;}
 
-  .photo-slot-icon{
-    font-size:22px;
-    opacity:0.3;
-  }
-
-  .photo-slot-label{
-    font-family:'Montserrat',sans-serif;
-    font-size:9px;
-    font-weight:600;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.35);
-    text-align:center;
-    padding:0 8px;
-  }
-
-  .photo-slot img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:1;
-  }
-
-  .remove-photo{
-    position:absolute;
-    top:6px;
-    right:6px;
-    background:var(--navy);
-    border:none;
-    color:white;
-    width:26px;
-    height:26px;
-    border-radius:50%;
-    font-size:16px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:4;
-  }
-
-  .signature-wrap{
-    background:var(--white);
-    border:1.5px solid var(--border);
-    padding:10px;
-    margin-top:10px;
-  }
-
-  #signaturePad{
-    width:100%;
-    height:180px;
-    background:#fff;
-    touch-action:none;
-    border:1px solid var(--border2);
-    display:block;
-  }
-
+  /* ── UNIT CARDS (indoor and outdoor) ── */
   .unit-card{
-    background:white;
-    border:1.5px solid var(--border);
-    border-left:4px solid var(--navy);
-    padding:14px;
-    margin-bottom:8px;
+    background:white;border:1.5px solid var(--border);
+    border-left:4px solid var(--navy);padding:14px;margin-bottom:8px;
   }
 
-  .unit-card-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:8px;
-  }
+  .unit-card.outdoor-card{border-left-color:var(--blue);}
 
-  .unit-card-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:var(--navy);
-  }
+  .unit-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 
-  .unit-remove{
-    background:none;
-    border:1.5px solid var(--border);
-    color:var(--muted);
-    font-size:18px;
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    line-height:1;
-  }
+  .unit-card-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);}
+  .unit-card.outdoor-card .unit-card-title{color:var(--blue);}
 
-  .unit-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:6px;
-    margin-top:6px;
-  }
+  .unit-remove{background:none;border:1.5px solid var(--border);color:var(--muted);font-size:18px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;}
+
+  .unit-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}
 
   .add-unit-btn{
-    width:100%;
-    padding:13px;
-    background:transparent;
-    border:1.5px dashed var(--blue);
-    color:var(--blue);
-    font-family:'Montserrat',sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    cursor:pointer;
-    margin-top:4px;
+    width:100%;padding:13px;background:transparent;
+    border:1.5px dashed var(--blue);color:var(--blue);
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:4px;
     transition:background 0.15s;
   }
 
-  .add-unit-btn:active{
-    background:var(--blue-dim);
+  .add-unit-btn:active{background:var(--blue-dim);}
+
+  .add-unit-btn.outdoor-btn{
+    border-color:var(--blue);color:var(--blue);
+    margin-top:8px;
   }
 
+  /* ── NAV ── */
   .nav-bar{
-    position:fixed;
-    bottom:0; left:0; right:0;
-    background:white;
-    border-top:2px solid var(--border);
-    padding:12px 20px;
+    position:fixed;bottom:0;left:0;right:0;background:white;
+    border-top:2px solid var(--border);padding:12px 20px;
     padding-bottom:calc(12px + env(safe-area-inset-bottom));
-    display:flex;
-    gap:10px;
-    z-index:100;
+    display:flex;gap:10px;z-index:100;
     box-shadow:0 -4px 20px rgba(26,46,74,0.08);
   }
 
-  .btn{
-    flex:1;
-    padding:15px;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:11.5px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    border:none;
-    cursor:pointer;
-    transition:all 0.15s;
-  }
+  .btn{flex:1;padding:15px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.15s;}
+  .btn-back{background:var(--off);color:var(--muted);border:1.5px solid var(--border);flex:0 0 80px;font-size:18px;letter-spacing:0;}
+  .btn-next{background:var(--navy);color:white;}
+  .btn-submit{background:var(--success);color:white;}
 
-  .btn-back{
-    background:var(--off);
-    color:var(--muted);
-    border:1.5px solid var(--border);
-    flex:0 0 80px;
-    font-size:18px;
-    letter-spacing:0;
-  }
+  /* ── LOADING ── */
+  .loading-overlay{display:none;position:fixed;inset:0;background:rgba(26,46,74,0.9);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+  .loading-overlay.active{display:flex;}
+  .spinner{width:48px;height:48px;border:3px solid rgba(184,217,240,0.2);border-top-color:var(--sky);border-radius:50%;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .loading-text{color:var(--sky);font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:2px;font-size:10px;text-transform:uppercase;}
 
-  .btn-next{
-    background:var(--navy);
-    color:white;
-  }
-
-  .btn-submit{
-    background:var(--success);
-    color:white;
-  }
-
-  .loading-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(26,46,74,0.9);
-    z-index:999;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:20px;
-  }
-
-  .loading-overlay.active{
-    display:flex;
-  }
-
-  .spinner{
-    width:48px;
-    height:48px;
-    border:3px solid rgba(184,217,240,0.2);
-    border-top-color:var(--sky);
-    border-radius:50%;
-    animation:spin 0.8s linear infinite;
-  }
-
-  @keyframes spin{
-    to{ transform:rotate(360deg); }
-  }
-
-  .loading-text{
-    color:var(--sky);
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    letter-spacing:2px;
-    font-size:10px;
-    text-transform:uppercase;
-  }
-
-  .submit-screen{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    min-height:80vh;
-    text-align:center;
-    padding:40px 30px;
-  }
-
-  .submit-screen.active{
-    display:flex;
-  }
-
-  .submit-icon{
-    width:80px;
-    height:80px;
-    background:var(--navy);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:36px;
-    color:white;
-    margin-bottom:24px;
-    position:relative;
-  }
-
-  .submit-icon::after{
-    content:'';
-    position:absolute;
-    inset:-6px;
-    border-radius:50%;
-    border:2px solid var(--sky);
-    animation:pulse-ring 2s infinite;
-  }
-
-  @keyframes pulse-ring{
-    0%{ transform:scale(1); opacity:0.6; }
-    100%{ transform:scale(1.15); opacity:0; }
-  }
-
-  .submit-title{
-    font-family:'Montserrat',sans-serif;
-    font-weight:800;
-    font-size:24px;
-    color:var(--navy);
-    margin-bottom:8px;
-    letter-spacing:-0.5px;
-  }
-
-  .submit-sub{
-    font-size:13.5px;
-    color:var(--muted);
-    line-height:1.7;
-    max-width:320px;
-  }
-
-  .btn-new{
-    margin-top:32px;
-    padding:14px 40px;
-    background:var(--navy);
-    color:white;
-    font-family:'Montserrat',sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    border:none;
-    cursor:pointer;
-  }
+  /* ── SUCCESS ── */
+  .submit-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:40px 30px;}
+  .submit-screen.active{display:flex;}
+  .submit-icon{width:80px;height:80px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:white;margin-bottom:24px;position:relative;}
+  .submit-icon::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--sky);animation:pulse-ring 2s infinite;}
+  @keyframes pulse-ring{0%{transform:scale(1);opacity:0.6;}100%{transform:scale(1.15);opacity:0;}}
+  .submit-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;color:var(--navy);margin-bottom:8px;letter-spacing:-0.5px;}
+  .submit-sub{font-size:13.5px;color:var(--muted);line-height:1.7;max-width:320px;}
+  .btn-new{margin-top:32px;padding:14px 40px;background:var(--navy);color:white;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;}
 </style>
 </head>
 <body>
 
+<!-- PASSWORD OVERLAY -->
 <div id="passwordOverlay">
-  <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png" style="height:60px; margin-bottom:30px;">
-  <div style="color:var(--sky); font-family:'Montserrat'; font-weight:700; letter-spacing:2px; font-size:10px; margin-bottom:10px;">AUTHORIZED ACCESS ONLY</div>
-  <input type="password" id="passInput" placeholder="Enter Password" style="max-width:300px; text-align:center; border-radius:4px; margin-bottom:15px;">
-  <button class="btn btn-next" style="max-width:300px; width:100%;" onclick="checkPass()">Unlock Form</button>
-  <p id="passError" style="color:var(--error); font-size:12px; margin-top:10px; display:none; font-family:'Montserrat'; font-weight:600;">Incorrect password. Access denied.</p>
+  <img src="https://cdn.shopify.com/s/files/1/0906/1780/7181/files/akita-logo-cartoon-husky-sunglasses-coat.png?v=1773353080"
+       style="height:90px;margin-bottom:28px;filter:none;">
+  <div style="color:var(--sky);font-family:'Montserrat';font-weight:700;letter-spacing:2px;font-size:10px;margin-bottom:18px;">AUTHORISED ACCESS ONLY</div>
+  <input type="password" id="passInput" placeholder="Enter Password"
+         style="max-width:300px;text-align:center;border-radius:4px;margin-bottom:14px;">
+  <button class="btn btn-next" style="max-width:300px;width:100%;" onclick="checkPass()">Unlock</button>
+  <p id="passError" style="color:var(--error);font-size:12px;margin-top:12px;display:none;font-family:'Montserrat';font-weight:600;">Incorrect password.</p>
 </div>
 
+<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text">Generating Report...</div>
 </div>
 
+<!-- HEADER — logo is bigger and colour is preserved -->
 <div class="app-header">
   <div class="header-logo">
-    <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png" alt="Akita">
+    <img src="https://cdn.shopify.com/s/files/1/0906/1780/7181/files/akita-logo-cartoon-husky-sunglasses-coat.png?v=1773353080"
+         alt="Akita"
+         onerror="this.style.display='none'">
   </div>
   <div class="header-badge">Commission Report</div>
 </div>
 
-<div class="progress-wrap">
-  <div class="progress-fill" id="progressFill"></div>
-</div>
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
 
 <div class="step-bar">
   <div class="step-dots" id="stepDots">
@@ -795,6 +340,8 @@
 </div>
 
 <div class="form-body" id="formBody">
+
+  <!-- 01 CUSTOMER -->
   <div class="section active" id="section-1">
     <div class="section-header">
       <div class="section-num">01 / 05</div>
@@ -819,7 +366,7 @@
       </div>
       <div class="field" id="f-customerAddress">
         <div class="field-label">Installation Address <span class="req">*</span></div>
-        <textarea id="customerAddress" placeholder="Full address"></textarea>
+        <textarea id="customerAddress" placeholder="Full address including postcode"></textarea>
         <div class="field-error">Required</div>
       </div>
       <div class="field">
@@ -834,6 +381,7 @@
     </div>
   </div>
 
+  <!-- 02 SYSTEM — now has multiple outdoor units + indoor units -->
   <div class="section" id="section-2">
     <div class="section-header">
       <div class="section-num">02 / 05</div>
@@ -850,20 +398,10 @@
           <option>Heat Pump</option>
           <option>Cassette Unit</option>
           <option>Ducted System</option>
+          <option>VRF / VRV System</option>
         </select>
       </div>
-      <div class="field">
-        <div class="field-label">Outdoor Model No.</div>
-        <input type="text" id="outdoorModelNumber">
-      </div>
-      <div class="field">
-        <div class="field-label">Outdoor Serial No.</div>
-        <input type="text" id="outdoorSerialNumber">
-      </div>
-      <div class="field">
-        <div class="field-label">Outdoor Unit Location</div>
-        <input type="text" id="outdoorUnitLocation" placeholder="e.g. Rear Garden">
-      </div>
+
       <div class="field">
         <div class="field-label">Electrical Supply</div>
         <select id="electricalOption">
@@ -874,6 +412,7 @@
           <option>Existing Circuit</option>
         </select>
       </div>
+
       <div class="field">
         <div class="field-label">Drain Type</div>
         <select id="drain">
@@ -883,40 +422,50 @@
           <option>External Drain</option>
         </select>
       </div>
-      <div class="field" style="border:none;">
-        <div class="field-label">Indoor Unit(s)</div>
+
+      <!-- OUTDOOR UNITS — dynamic, supports multiple -->
+      <div class="field" style="border:none;padding-bottom:0;">
+        <div class="field-label" style="margin-bottom:12px;">Outdoor Unit(s)</div>
+        <div id="outdoorUnitsList"></div>
+        <button type="button" class="add-unit-btn outdoor-btn" onclick="addOutdoorUnit()">+ Add Outdoor Unit</button>
+      </div>
+
+      <!-- INDOOR UNITS — dynamic -->
+      <div class="field" style="border:none;padding-top:20px;">
+        <div class="field-label" style="margin-bottom:12px;">Indoor Unit(s)</div>
         <div id="indoorUnitsList"></div>
         <button type="button" class="add-unit-btn" onclick="addIndoorUnit()">+ Add Indoor Unit</button>
       </div>
     </div>
   </div>
 
+  <!-- 03 TEST RESULTS -->
   <div class="section" id="section-3">
     <div class="section-header">
       <div class="section-num">03 / 05</div>
       <div class="section-title">Test Results</div>
-      <div class="section-sub">Final readings and engineer notes</div>
+      <div class="section-sub">Commissioning readings and checks</div>
     </div>
     <div class="field-group">
       <div class="readings-grid">
         <div class="reading-card">
           <div class="field-label">Pressure</div>
-          <input type="number" id="pressureValue" placeholder="0.0">
+          <input type="number" id="pressureValue" placeholder="0.0" inputmode="decimal">
           <div class="reading-unit">Bar / PSI</div>
         </div>
         <div class="reading-card">
           <div class="field-label">Microns</div>
-          <input type="number" id="micronReading" placeholder="0">
+          <input type="number" id="micronReading" placeholder="0" inputmode="numeric">
           <div class="reading-unit">Microns</div>
         </div>
         <div class="reading-card">
           <div class="field-label">Current</div>
-          <input type="number" id="runningCurrent" placeholder="0.0">
+          <input type="number" id="runningCurrent" placeholder="0.0" inputmode="decimal">
           <div class="reading-unit">Amps</div>
         </div>
         <div class="reading-card">
           <div class="field-label">Pipe Length</div>
-          <input type="number" id="pipeLength" placeholder="0">
+          <input type="number" id="pipeLength" placeholder="0" inputmode="decimal">
           <div class="reading-unit">Metres</div>
         </div>
       </div>
@@ -961,6 +510,7 @@
     </div>
   </div>
 
+  <!-- 04 PHOTOS -->
   <div class="section" id="section-4">
     <div class="section-header">
       <div class="section-num">04 / 05</div>
@@ -993,6 +543,7 @@
     </div>
   </div>
 
+  <!-- 05 SIGN-OFF -->
   <div class="section" id="section-5">
     <div class="section-header">
       <div class="section-num">05 / 05</div>
@@ -1017,19 +568,22 @@
       <div class="field">
         <div class="field-label">Customer Signature</div>
         <div class="signature-wrap"><canvas id="signaturePad"></canvas></div>
-        <button type="button" class="add-unit-btn" onclick="clearSignature()">Clear Signature</button>
+        <button type="button" class="add-unit-btn" style="margin-top:8px;" onclick="clearSignature()">Clear Signature</button>
       </div>
     </div>
   </div>
 
+  <!-- SUCCESS -->
   <div class="submit-screen" id="submitScreen">
     <div class="submit-icon">✓</div>
     <div class="submit-title">Report Generated</div>
     <div class="submit-sub">The commissioning report has been generated, saved, and sent successfully.</div>
     <button class="btn-new" onclick="location.reload()">Generate Next Report</button>
   </div>
+
 </div>
 
+<!-- NAV -->
 <div class="nav-bar" id="navBar">
   <button class="btn btn-back" id="btnBack" onclick="prevSection()" style="display:none;">←</button>
   <button class="btn btn-next" id="btnNext" onclick="nextSection()">Continue →</button>
@@ -1039,15 +593,14 @@
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0PkTD85HhHzlZXI1QHfHxC4RrX4kUpT079ZL9tvE1dWaRU2iZxN-y_hCiWy7cJXc/exec';
 
   let currentSection = 1;
-  let unitCount = 0;
+  let indoorCount = 0;
+  let outdoorCount = 0;
   const photos = {};
 
-  // Password Logic
+  // ── PASSWORD ──
   function checkPass() {
     const pass = document.getElementById('passInput').value;
-    const SECRET = "Akita2026"; // CHANGE YOUR PASSWORD HERE
-
-    if (pass === SECRET) {
+    if (pass === 'Akita2026') {
       document.getElementById('passwordOverlay').style.display = 'none';
       setTimeout(resizeSig, 200);
     } else {
@@ -1056,38 +609,85 @@
     }
   }
 
-  document.getElementById("passInput").addEventListener("keyup", function(event) {
-    if (event.key === "Enter") checkPass();
+  document.getElementById('passInput').addEventListener('keyup', e => {
+    if (e.key === 'Enter') checkPass();
   });
 
   document.getElementById('installDate').valueAsDate = new Date();
 
-  function addIndoorUnit(location = '', model = '', serial = '') {
-    unitCount++;
+  // ── URL PRE-POPULATION (Jobber Zap) ──
+  (function prefill() {
+    const p = new URLSearchParams(window.location.search);
+    const map = {
+      customer: 'customerName', address: 'customerAddress',
+      phone: 'customerPhone', email: 'customerEmail',
+      jobref: 'jobRef', date: 'installDate',
+      system: 'systemType', property: 'propertyType',
+    };
+    Object.entries(map).forEach(([param, id]) => {
+      const val = p.get(param);
+      const el = document.getElementById(id);
+      if (val && el) el.value = decodeURIComponent(val);
+    });
+  })();
+
+  // ── OUTDOOR UNITS ──
+  function addOutdoorUnit(location = '', model = '', serial = '') {
+    outdoorCount++;
     const div = document.createElement('div');
-    div.className = 'unit-card';
-    div.id = `unit-row-${unitCount}`;
+    div.className = 'unit-card outdoor-card';
+    div.id = `outdoor-row-${outdoorCount}`;
     div.innerHTML = `
       <div class="unit-card-head">
-        <div class="unit-card-title">Indoor Unit ${unitCount}</div>
-        ${unitCount > 1 ? `<button type="button" class="unit-remove" onclick="removeUnit(${unitCount})">×</button>` : ''}
+        <div class="unit-card-title">Outdoor Unit ${outdoorCount}</div>
+        ${outdoorCount > 1 ? `<button type="button" class="unit-remove" onclick="removeOutdoor(${outdoorCount})">×</button>` : ''}
       </div>
-      <input type="text" class="u-loc" placeholder="Location" value="${location}" style="margin-bottom:6px;">
+      <input type="text" class="o-loc" placeholder="Location (e.g. Rear garden)" value="${location}"
+             style="width:100%;margin-bottom:6px;">
       <div class="unit-grid">
-        <input type="text" class="u-mod" placeholder="Model No." value="${model}">
-        <input type="text" class="u-ser" placeholder="Serial No." value="${serial}">
+        <input type="text" class="o-mod" placeholder="Model No." value="${model}" autocapitalize="characters">
+        <input type="text" class="o-ser" placeholder="Serial No." value="${serial}" autocapitalize="characters">
+      </div>
+    `;
+    document.getElementById('outdoorUnitsList').appendChild(div);
+  }
+
+  function removeOutdoor(n) {
+    const el = document.getElementById(`outdoor-row-${n}`);
+    if (el) el.remove();
+  }
+
+  // ── INDOOR UNITS ──
+  function addIndoorUnit(location = '', model = '', serial = '') {
+    indoorCount++;
+    const div = document.createElement('div');
+    div.className = 'unit-card';
+    div.id = `unit-row-${indoorCount}`;
+    div.innerHTML = `
+      <div class="unit-card-head">
+        <div class="unit-card-title">Indoor Unit ${indoorCount}</div>
+        ${indoorCount > 1 ? `<button type="button" class="unit-remove" onclick="removeIndoor(${indoorCount})">×</button>` : ''}
+      </div>
+      <input type="text" class="u-loc" placeholder="Location (e.g. Master bedroom)" value="${location}"
+             style="width:100%;margin-bottom:6px;">
+      <div class="unit-grid">
+        <input type="text" class="u-mod" placeholder="Model No." value="${model}" autocapitalize="characters">
+        <input type="text" class="u-ser" placeholder="Serial No." value="${serial}" autocapitalize="characters">
       </div>
     `;
     document.getElementById('indoorUnitsList').appendChild(div);
   }
 
-  function removeUnit(n) {
+  function removeIndoor(n) {
     const el = document.getElementById(`unit-row-${n}`);
     if (el) el.remove();
   }
 
+  // Start with one of each
+  addOutdoorUnit();
   addIndoorUnit();
 
+  // ── PROGRESS ──
   function updateProgress() {
     const pct = ((currentSection - 1) / 4) * 100;
     document.getElementById('progressFill').style.width = pct + '%';
@@ -1095,19 +695,13 @@
     document.getElementById('stepLabel').textContent = `Step ${currentSection} of 5`;
 
     document.querySelectorAll('.step-dot').forEach((d, i) => {
-      d.className = i + 1 === currentSection
-        ? 'step-dot active'
+      d.className = i + 1 === currentSection ? 'step-dot active'
         : (i + 1 < currentSection ? 'step-dot done' : 'step-dot');
     });
 
-    const nextBtn = document.getElementById('btnNext');
-    if (currentSection === 5) {
-      nextBtn.textContent = 'Generate Report ✓';
-      nextBtn.className = 'btn btn-submit';
-    } else {
-      nextBtn.textContent = 'Continue →';
-      nextBtn.className = 'btn btn-next';
-    }
+    const btn = document.getElementById('btnNext');
+    btn.textContent = currentSection === 5 ? 'Generate Report ✓' : 'Continue →';
+    btn.className = currentSection === 5 ? 'btn btn-submit' : 'btn btn-next';
   }
 
   function showSection(n) {
@@ -1123,23 +717,16 @@
       1: ['customerName', 'customerPhone', 'customerEmail', 'customerAddress'],
       5: ['installDate', 'jobRef']
     };
-
     if (!required[n]) return true;
-
     required[n].forEach(id => {
       const el = document.getElementById(id);
       const wrapper = document.getElementById('f-' + id);
       if (!el || !wrapper) return;
-
       let ok = (el.value || '').trim() !== '';
-      if (id === 'customerEmail' && ok) {
-        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
-      }
-
+      if (id === 'customerEmail' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
       wrapper.classList.toggle('has-error', !ok);
       if (!ok) valid = false;
     });
-
     return valid;
   }
 
@@ -1155,12 +742,10 @@
   }
 
   function prevSection() {
-    if (currentSection > 1) {
-      currentSection--;
-      showSection(currentSection);
-    }
+    if (currentSection > 1) { currentSection--; showSection(currentSection); }
   }
 
+  // ── TOGGLES ──
   document.querySelectorAll('.toggle-group:not(#checksGroup)').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1187,29 +772,20 @@
     return checks;
   }
 
+  // ── PHOTOS with compression ──
   function handlePhoto(input, key, slotId) {
     const file = input.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const max = 1000;
-        let w = img.width;
-        let h = img.height;
-
-        if (w > h && w > max) {
-          h *= max / w;
-          w = max;
-        } else if (h > max) {
-          w *= max / h;
-          h = max;
-        }
-
-        canvas.width = w;
-        canvas.height = h;
+        let w = img.width, h = img.height;
+        if (w > h && w > max) { h *= max / w; w = max; }
+        else if (h > max) { w *= max / h; h = max; }
+        canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
         photos[key] = canvas.toDataURL('image/jpeg', 0.7);
 
@@ -1228,14 +804,7 @@
   function removePhoto(ev, key, slotId) {
     ev.stopPropagation();
     delete photos[key];
-
-    const labels = {
-      'slot-indoor': 'Indoor Unit',
-      'slot-outdoor': 'Outdoor Unit',
-      'slot-pipework': 'Pipework',
-      'slot-electrical': 'Electrical'
-    };
-
+    const labels = {'slot-indoor':'Indoor Unit','slot-outdoor':'Outdoor Unit','slot-pipework':'Pipework','slot-electrical':'Electrical'};
     document.getElementById(slotId).innerHTML = `
       <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
       <div class="photo-slot-icon">📷</div>
@@ -1243,80 +812,85 @@
     `;
   }
 
+  // ── SIGNATURE ──
   const sigCanvas = document.getElementById('signaturePad');
   const sigCtx = sigCanvas.getContext('2d');
   let sigDrawing = false;
 
   function resizeSig() {
     const rect = sigCanvas.getBoundingClientRect();
-    sigCanvas.width = rect.width;
-    sigCanvas.height = rect.height;
-    sigCtx.lineWidth = 2;
-    sigCtx.lineCap = 'round';
-    sigCtx.lineJoin = 'round';
-    sigCtx.strokeStyle = '#1a2e4a';
+    sigCanvas.width = rect.width; sigCanvas.height = rect.height;
+    sigCtx.lineWidth = 2; sigCtx.lineCap = 'round';
+    sigCtx.lineJoin = 'round'; sigCtx.strokeStyle = '#1a2e4a';
   }
 
   window.addEventListener('resize', resizeSig);
 
-  // Touch signature events
-  sigCanvas.addEventListener('touchstart', e => { 
-    sigDrawing = true; 
-    sigCtx.beginPath(); 
-    const t = e.touches[0];
-    const rect = sigCanvas.getBoundingClientRect();
-    sigCtx.moveTo(t.clientX - rect.left, t.clientY - rect.top);
-    e.preventDefault(); 
+  sigCanvas.addEventListener('touchstart', e => {
+    sigDrawing = true; sigCtx.beginPath();
+    const t = e.touches[0], r = sigCanvas.getBoundingClientRect();
+    sigCtx.moveTo(t.clientX - r.left, t.clientY - r.top);
+    e.preventDefault();
   }, {passive:false});
 
   sigCanvas.addEventListener('touchmove', e => {
     if (!sigDrawing) return;
     const t = e.touches[0], r = sigCanvas.getBoundingClientRect();
-    sigCtx.lineTo(t.clientX - r.left, t.clientY - r.top); 
-    sigCtx.stroke();
-    e.preventDefault();
+    sigCtx.lineTo(t.clientX - r.left, t.clientY - r.top);
+    sigCtx.stroke(); e.preventDefault();
   }, {passive:false});
 
   sigCanvas.addEventListener('touchend', () => sigDrawing = false);
-  
-  function clearSignature() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
+  function clearSignature() { sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height); }
 
+  // ── SUBMIT ──
   async function submitForm() {
     document.getElementById('loadingOverlay').classList.add('active');
-    
+
+    // Collect outdoor units
+    const outdoorUnits = [];
+    document.querySelectorAll('.outdoor-card').forEach(card => {
+      outdoorUnits.push({
+        location: card.querySelector('.o-loc') ? card.querySelector('.o-loc').value : '',
+        model:    card.querySelector('.o-mod') ? card.querySelector('.o-mod').value : '',
+        serial:   card.querySelector('.o-ser') ? card.querySelector('.o-ser').value : '',
+      });
+    });
+
+    // Collect indoor units
     const indoorUnits = [];
-    document.querySelectorAll('.unit-card').forEach(card => {
+    document.querySelectorAll('.unit-card:not(.outdoor-card)').forEach(card => {
       indoorUnits.push({
-        location: card.querySelector('.u-loc').value,
-        model: card.querySelector('.u-mod').value,
-        serial: card.querySelector('.u-ser').value
+        location: card.querySelector('.u-loc') ? card.querySelector('.u-loc').value : '',
+        model:    card.querySelector('.u-mod') ? card.querySelector('.u-mod').value : '',
+        serial:   card.querySelector('.u-ser') ? card.querySelector('.u-ser').value : '',
       });
     });
 
     const payload = {
-      customerName: document.getElementById('customerName').value,
-      customerEmail: document.getElementById('customerEmail').value,
-      customerPhone: document.getElementById('customerPhone').value,
+      customerName:    document.getElementById('customerName').value,
+      customerEmail:   document.getElementById('customerEmail').value,
+      customerPhone:   document.getElementById('customerPhone').value,
       customerAddress: document.getElementById('customerAddress').value,
-      propertyType: document.getElementById('propertyType').value,
-      systemType: document.getElementById('systemType').value,
-      outdoorModelNumber: document.getElementById('outdoorModelNumber').value,
-      outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value,
-      outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value,
-      pressureValue: document.getElementById('pressureValue').value,
-      micronReading: document.getElementById('micronReading').value,
-      runningCurrent: document.getElementById('runningCurrent').value,
-      pipeLength: document.getElementById('pipeLength').value,
-      suctionLine: getToggleVal('suctionLine'),
-      liquidLine: getToggleVal('liquidLine'),
-      checks: getChecks(),
+      propertyType:    document.getElementById('propertyType').value,
+      systemType:      document.getElementById('systemType').value,
+      electricalOption: document.getElementById('electricalOption').value,
+      drain:           document.getElementById('drain').value,
+      outdoorUnits,
+      indoorUnits,
+      pressureValue:   document.getElementById('pressureValue').value,
+      micronReading:   document.getElementById('micronReading').value,
+      runningCurrent:  document.getElementById('runningCurrent').value,
+      pipeLength:      document.getElementById('pipeLength').value,
+      suctionLine:     getToggleVal('suctionLine'),
+      liquidLine:      getToggleVal('liquidLine'),
+      checks:          getChecks(),
       engineerComments: document.getElementById('engineerComments').value,
-      installDate: document.getElementById('installDate').value,
-      jobRef: document.getElementById('jobRef').value,
+      installDate:     document.getElementById('installDate').value,
+      jobRef:          document.getElementById('jobRef').value,
       customerComments: document.getElementById('customerComments').value,
-      indoorUnits: indoorUnits,
-      photos: photos,
-      signature: sigCanvas.toDataURL()
+      photos,
+      signature:       sigCanvas.toDataURL(),
     };
 
     try {
@@ -1330,10 +904,12 @@
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
     } catch (e) {
-      alert("Submission Error: " + e.message);
+      alert('Submission error: ' + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
     }
   }
+
+  updateProgress();
 </script>
 </body>
 </html>
