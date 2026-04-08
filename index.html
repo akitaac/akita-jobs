@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 72px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -61,32 +61,15 @@
   .header-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
   }
 
   .header-logo img {
-    height: 38px;
+    height: 44px;
     width: auto;
-    filter: brightness(0) invert(1);
-  }
-
-  .header-logo-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    color: var(--white);
-    letter-spacing: -0.5px;
-    line-height: 1;
-  }
-
-  .header-logo-sub {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7.5px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sky);
-    margin-top: 2px;
+    display: block;
+    object-fit: contain;
+    filter: none !important;
+    -webkit-filter: none !important;
   }
 
   .header-badge {
@@ -94,10 +77,10 @@
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 8.5px;
+    font-size: 9px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 6px 10px;
     white-space: nowrap;
   }
 
@@ -106,7 +89,7 @@
     background: var(--navy2);
     height: 3px;
     position: sticky;
-    top: 64px;
+    top: 72px;
     z-index: 99;
   }
 
@@ -124,7 +107,7 @@
     align-items: center;
     justify-content: space-between;
     position: sticky;
-    top: 67px;
+    top: 75px;
     z-index: 98;
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
@@ -445,6 +428,26 @@
     cursor: pointer; z-index: 2;
   }
 
+  /* ── SIGNATURE ── */
+  .signature-wrap {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    padding: 10px;
+  }
+
+  #signaturePad {
+    width: 100%;
+    height: 180px;
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border2);
+    touch-action: none;
+  }
+
+  .sig-actions {
+    margin-top: 10px;
+  }
+
   /* ── UNIT CARDS ── */
   .unit-card {
     background: var(--white);
@@ -670,12 +673,9 @@
 <!-- HEADER -->
 <div class="app-header">
   <div class="header-logo">
-    <img src="https://cdn.shopify.com/s/files/1/0906/1780/7181/files/akita-logo-cartoon-husky-sunglasses-coat.png?v=1773353080"
-         alt="Akita" onerror="this.style.display='none'">
-    <div>
-      <div class="header-logo-text">AKITA</div>
-      <div class="header-logo-sub">Air Conditioning</div>
-    </div>
+    <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png"
+         alt="Akita Air Conditioning & Refrigeration"
+         onerror="this.style.display='none'">
   </div>
   <div class="header-badge">Commission Report</div>
 </div>
@@ -922,6 +922,16 @@
       <div class="field">
         <div class="field-label">Customer Comments</div>
         <textarea id="customerComments" placeholder="Any feedback from the customer..."></textarea>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Customer Signature</div>
+        <div class="signature-wrap">
+          <canvas id="signaturePad"></canvas>
+        </div>
+        <div class="sig-actions">
+          <button type="button" class="add-unit-btn" onclick="clearSignature()" style="margin-top:0;">Clear Signature</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1177,6 +1187,7 @@
       jobRef:              document.getElementById('jobRef').value.trim(),
       customerComments:    document.getElementById('customerComments').value.trim() || 'None.',
       photos,
+      signature:           hasSignature() ? signatureCanvas.toDataURL('image/png') : '',
       ...checks
     };
   }
@@ -1204,6 +1215,86 @@
   }
 
   function resetForm() { location.reload(); }
+
+  // ── SIGNATURE PAD ──
+  const signatureCanvas = document.getElementById('signaturePad');
+  const signatureCtx = signatureCanvas.getContext('2d');
+  let isSigning = false;
+  let signatureStarted = false;
+
+  function resizeSignatureCanvas() {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const rect = signatureCanvas.getBoundingClientRect();
+    const existing = signatureStarted ? signatureCanvas.toDataURL('image/png') : null;
+
+    signatureCanvas.width = rect.width * ratio;
+    signatureCanvas.height = 180 * ratio;
+
+    signatureCtx.setTransform(1, 0, 0, 1, 0, 0);
+    signatureCtx.scale(ratio, ratio);
+    signatureCtx.lineWidth = 2;
+    signatureCtx.lineCap = 'round';
+    signatureCtx.lineJoin = 'round';
+    signatureCtx.strokeStyle = '#1a2e4a';
+
+    if (existing) {
+      const img = new Image();
+      img.onload = () => {
+        signatureCtx.drawImage(img, 0, 0, rect.width, 180);
+      };
+      img.src = existing;
+    }
+  }
+
+  function getSignaturePos(e) {
+    const rect = signatureCanvas.getBoundingClientRect();
+    const point = e.touches ? e.touches[0] : e;
+    return {
+      x: point.clientX - rect.left,
+      y: point.clientY - rect.top
+    };
+  }
+
+  function startSignature(e) {
+    isSigning = true;
+    signatureStarted = true;
+    const pos = getSignaturePos(e);
+    signatureCtx.beginPath();
+    signatureCtx.moveTo(pos.x, pos.y);
+  }
+
+  function drawSignature(e) {
+    if (!isSigning) return;
+    e.preventDefault();
+    const pos = getSignaturePos(e);
+    signatureCtx.lineTo(pos.x, pos.y);
+    signatureCtx.stroke();
+  }
+
+  function endSignature() {
+    isSigning = false;
+  }
+
+  function clearSignature() {
+    signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+    signatureStarted = false;
+  }
+
+  function hasSignature() {
+    return signatureStarted;
+  }
+
+  signatureCanvas.addEventListener('mousedown', startSignature);
+  signatureCanvas.addEventListener('mousemove', drawSignature);
+  signatureCanvas.addEventListener('mouseup', endSignature);
+  signatureCanvas.addEventListener('mouseleave', endSignature);
+
+  signatureCanvas.addEventListener('touchstart', startSignature, { passive: true });
+  signatureCanvas.addEventListener('touchmove', drawSignature, { passive: false });
+  signatureCanvas.addEventListener('touchend', endSignature);
+
+  window.addEventListener('load', resizeSignatureCanvas);
+  window.addEventListener('resize', resizeSignatureCanvas);
 
   updateProgress();
 </script>
