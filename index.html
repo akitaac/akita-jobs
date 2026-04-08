@@ -1207,30 +1207,49 @@
     };
   }
 
-  async function submitForm() {
+  function submitForm() {
   const data = collectData();
-
   document.getElementById('loadingOverlay').classList.add('active');
 
   try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(data)
-    });
+    let iframe = document.getElementById('submitTarget');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = 'submitTarget';
+      iframe.id = 'submitTarget';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
 
-    document.getElementById('loadingOverlay').classList.remove('active');
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SCRIPT_URL;
+    form.target = 'submitTarget';
+    form.style.display = 'none';
 
-    // SUCCESS UI
-    document.getElementById('formBody').querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById('navBar').style.display = 'none';
-    document.getElementById('submitScreen').classList.add('active');
-    document.getElementById('progressFill').style.width = '100%';
-    window.scrollTo(0, 0);
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(data);
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+
+    form.submit();
+
+    setTimeout(() => {
+      document.getElementById('loadingOverlay').classList.remove('active');
+      document.getElementById('formBody').querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('navBar').style.display = 'none';
+      document.getElementById('submitScreen').classList.add('active');
+      document.getElementById('progressFill').style.width = '100%';
+      window.scrollTo(0, 0);
+      form.remove();
+    }, 1500);
 
   } catch (err) {
     document.getElementById('loadingOverlay').classList.remove('active');
-    alert('❌ Submission failed — check connection');
+    alert('Submission failed. Please try again.');
     console.error(err);
   }
 }
