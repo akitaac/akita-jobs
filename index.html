@@ -37,7 +37,6 @@
     overscroll-behavior: none;
   }
 
-  /* ── HEADER ── */
   .app-header {
     background: var(--navy);
     padding: 0 20px;
@@ -84,7 +83,6 @@
     white-space: nowrap;
   }
 
-  /* ── PROGRESS ── */
   .progress-wrap {
     background: var(--navy2);
     height: 3px;
@@ -133,7 +131,6 @@
     color: var(--sky);
   }
 
-  /* ── SECTIONS ── */
   .form-body { padding-bottom: 100px; }
   .section { display: none; animation: fadeUp 0.28s ease; }
   .section.active { display: block; }
@@ -185,7 +182,6 @@
     margin-top: 5px;
   }
 
-  /* ── FIELDS ── */
   .field-group { padding: 4px 20px; }
 
   .field {
@@ -264,7 +260,6 @@
 
   .field.has-error .field-error { display: block; }
 
-  /* ── TOGGLE BUTTONS ── */
   .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .toggle-btn {
@@ -326,7 +321,6 @@
     font-family: sans-serif;
   }
 
-  /* ── READING CARDS ── */
   .readings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
   .reading-card {
@@ -365,6 +359,7 @@
   }
 
   .reading-card input::placeholder { color: rgba(255,255,255,0.2); }
+
   .reading-unit {
     font-family: 'Montserrat', sans-serif;
     font-size: 9px;
@@ -375,7 +370,6 @@
     margin-top: 4px;
   }
 
-  /* ── PHOTOS ── */
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
   .photo-slot {
@@ -415,7 +409,9 @@
     padding: 0 8px;
   }
 
-  .photo-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo-slot img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
 
   .remove-photo {
     position: absolute; top: 6px; right: 6px;
@@ -428,7 +424,6 @@
     cursor: pointer; z-index: 2;
   }
 
-  /* ── SIGNATURE ── */
   .signature-wrap {
     background: var(--white);
     border: 1.5px solid var(--border);
@@ -448,7 +443,6 @@
     margin-top: 10px;
   }
 
-  /* ── UNIT CARDS ── */
   .unit-card {
     background: var(--white);
     border: 1.5px solid var(--border);
@@ -484,7 +478,9 @@
     line-height: 1;
   }
 
-  .unit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .unit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;
+  }
 
   .unit-input {
     width: 100%;
@@ -520,7 +516,6 @@
 
   .add-unit-btn:active { background: var(--blue-dim); }
 
-  /* ── NAV BAR ── */
   .nav-bar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -561,7 +556,6 @@
   .btn-back:active { opacity: 0.7; }
   .btn-submit { background: var(--success); color: var(--white); }
 
-  /* ── SUCCESS ── */
   .submit-screen {
     display: none;
     flex-direction: column;
@@ -628,7 +622,6 @@
     cursor: pointer;
   }
 
-  /* ── LOADING ── */
   .loading-overlay {
     display: none;
     position: fixed; inset: 0;
@@ -664,13 +657,11 @@
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text">Generating Report...</div>
 </div>
 
-<!-- HEADER -->
 <div class="app-header">
   <div class="header-logo">
     <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png"
@@ -696,8 +687,6 @@
 </div>
 
 <div class="form-body" id="formBody">
-
-  <!-- 01 CUSTOMER -->
   <div class="section active" id="section-1">
     <div class="section-header">
       <div class="section-num">01 / 05</div>
@@ -737,7 +726,6 @@
     </div>
   </div>
 
-  <!-- 02 SYSTEM -->
   <div class="section" id="section-2">
     <div class="section-header">
       <div class="section-num">02 / 05</div>
@@ -796,7 +784,6 @@
     </div>
   </div>
 
-  <!-- 03 TESTS -->
   <div class="section" id="section-3">
     <div class="section-header">
       <div class="section-num">03 / 05</div>
@@ -866,7 +853,6 @@
     </div>
   </div>
 
-  <!-- 04 PHOTOS -->
   <div class="section" id="section-4">
     <div class="section-header">
       <div class="section-num">04 / 05</div>
@@ -901,7 +887,6 @@
     </div>
   </div>
 
-  <!-- 05 SIGN-OFF -->
   <div class="section" id="section-5">
     <div class="section-header">
       <div class="section-num">05 / 05</div>
@@ -936,17 +921,14 @@
     </div>
   </div>
 
-  <!-- SUCCESS -->
   <div class="submit-screen" id="submitScreen">
     <div class="submit-icon">✓</div>
     <div class="submit-title">Report Sent</div>
     <div class="submit-sub">The commissioning report has been generated, saved to Drive, and emailed to the customer.</div>
     <button class="btn-new" onclick="resetForm()">New Report</button>
   </div>
-
 </div>
 
-<!-- NAV -->
 <div class="nav-bar" id="navBar">
   <button class="btn btn-back" id="btnBack" onclick="prevSection()" style="display:none;">←</button>
   <button class="btn btn-next" id="btnNext" onclick="nextSection()">Continue →</button>
@@ -955,7 +937,6 @@
 <script>
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0PkTD85HhHzlZXI1QHfHxC4RrX4kUpT079ZL9tvE1dWaRU2iZxN-y_hCiWy7cJXc/exec';
 
-  // ── URL PRE-POPULATION (Jobber Zap) ──
   (function prefill() {
     const p = new URLSearchParams(window.location.search);
     const map = {
@@ -976,7 +957,6 @@
     });
   })();
 
-  // ── INDOOR UNITS ──
   let unitCount = 0;
 
   function addIndoorUnit(location = '', modelNumber = '', serialNumber = '') {
@@ -992,19 +972,16 @@
       </div>
       <div>
         <div class="field-label" style="margin-bottom:6px;">Location</div>
-        <input type="text" id="unit-loc-${unitCount}" value="${location}"
-               class="unit-input" placeholder="e.g. Master bedroom">
+        <input type="text" id="unit-loc-${unitCount}" value="${location}" class="unit-input" placeholder="e.g. Master bedroom">
       </div>
       <div class="unit-grid">
         <div>
           <div class="field-label" style="margin-bottom:6px;margin-top:8px;">Model No.</div>
-          <input type="text" id="unit-model-${unitCount}" value="${modelNumber}"
-                 class="unit-input" placeholder="Model" autocomplete="off" autocapitalize="characters">
+          <input type="text" id="unit-model-${unitCount}" value="${modelNumber}" class="unit-input" placeholder="Model" autocomplete="off" autocapitalize="characters">
         </div>
         <div>
           <div class="field-label" style="margin-bottom:6px;margin-top:8px;">Serial No.</div>
-          <input type="text" id="unit-serial-${unitCount}" value="${serialNumber}"
-                 class="unit-input" placeholder="Serial" autocomplete="off" autocapitalize="characters">
+          <input type="text" id="unit-serial-${unitCount}" value="${serialNumber}" class="unit-input" placeholder="Serial" autocomplete="off" autocapitalize="characters">
         </div>
       </div>
     `;
@@ -1018,7 +995,6 @@
 
   addIndoorUnit();
 
-  // ── FORM ──
   const TOTAL_SECTIONS = 5;
   let currentSection = 1;
   const photos = {};
@@ -1034,7 +1010,7 @@
     document.querySelectorAll('.step-dot').forEach((d, i) => {
       d.classList.remove('active', 'done');
       if (i + 1 === currentSection) d.classList.add('active');
-      if (i + 1 < currentSection)  d.classList.add('done');
+      if (i + 1 < currentSection) d.classList.add('done');
     });
 
     const btnNext = document.getElementById('btnNext');
@@ -1059,56 +1035,63 @@
 
   function nextSection() {
     if (!validateSection(currentSection)) return;
-    if (currentSection < TOTAL_SECTIONS) { currentSection++; showSection(currentSection); }
-    else submitForm();
+    if (currentSection < TOTAL_SECTIONS) {
+      currentSection++;
+      showSection(currentSection);
+    } else {
+      submitForm();
+    }
   }
 
   function prevSection() {
-    if (currentSection > 1) { currentSection--; showSection(currentSection); }
+    if (currentSection > 1) {
+      currentSection--;
+      showSection(currentSection);
+    }
   }
 
   function validateSection(n) {
-  let valid = true;
-  const invalid = [];
+    let valid = true;
+    const invalid = [];
 
-  const required = {
-    1: ['customerName','customerPhone','customerEmail','customerAddress'],
-    5: ['installDate','jobRef']
-  };
+    const required = {
+      1: ['customerName','customerPhone','customerEmail','customerAddress'],
+      5: ['installDate','jobRef']
+    };
 
-  if (!required[n]) return true;
+    if (!required[n]) return true;
 
-  required[n].forEach(id => {
-    const el = document.getElementById(id);
-    const wrapper = document.getElementById('f-' + id);
+    required[n].forEach(id => {
+      const el = document.getElementById(id);
+      const wrapper = document.getElementById('f-' + id);
 
-    if (!el) {
-      invalid.push(id + ' (missing field)');
-      valid = false;
-      return;
+      if (!el) {
+        invalid.push(id + ' (missing field)');
+        valid = false;
+        return;
+      }
+
+      const value = (el.value || '').trim();
+      let ok = value !== '';
+
+      if (id === 'customerEmail' && value) {
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      if (wrapper) wrapper.classList.toggle('has-error', !ok);
+
+      if (!ok) {
+        invalid.push(id + ' = "' + value + '"');
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      alert('Fix these fields:\n\n' + invalid.join('\n'));
     }
 
-    const value = (el.value || '').trim();
-    let ok = value !== '';
-
-    if (id === 'customerEmail' && value) {
-      ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    }
-
-    if (wrapper) wrapper.classList.toggle('has-error', !ok);
-
-    if (!ok) {
-      invalid.push(id + ' = "' + value + '"');
-      valid = false;
-    }
-  });
-
-  if (!valid) {
-    alert('Fix these fields:\n\n' + invalid.join('\n'));
+    return valid;
   }
-
-  return valid;
-}
 
   document.querySelectorAll('.toggle-group:not(#checksGroup)').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -1166,96 +1149,81 @@
   function collectData() {
     const checks = getChecks();
     const indoorUnits = [];
+
     for (let i = 1; i <= unitCount; i++) {
-      const locEl    = document.getElementById(`unit-loc-${i}`);
-      const modelEl  = document.getElementById(`unit-model-${i}`);
+      const locEl = document.getElementById(`unit-loc-${i}`);
+      const modelEl = document.getElementById(`unit-model-${i}`);
       const serialEl = document.getElementById(`unit-serial-${i}`);
       if (locEl || modelEl || serialEl) {
         indoorUnits.push({
-          location:     locEl    ? locEl.value.trim()    : '',
-          modelNumber:  modelEl  ? modelEl.value.trim()  : '',
+          location: locEl ? locEl.value.trim() : '',
+          modelNumber: modelEl ? modelEl.value.trim() : '',
           serialNumber: serialEl ? serialEl.value.trim() : '',
         });
       }
     }
+
     return {
-      customerName:        document.getElementById('customerName').value.trim(),
-      customerPhone:       document.getElementById('customerPhone').value.trim(),
-      customerEmail:       document.getElementById('customerEmail').value.trim(),
-      customerAddress:     document.getElementById('customerAddress').value.trim(),
-      propertyType:        document.getElementById('propertyType').value,
-      systemType:          document.getElementById('systemType').value,
+      customerName: document.getElementById('customerName').value.trim(),
+      customerPhone: document.getElementById('customerPhone').value.trim(),
+      customerEmail: document.getElementById('customerEmail').value.trim(),
+      customerAddress: document.getElementById('customerAddress').value.trim(),
+      propertyType: document.getElementById('propertyType').value,
+      systemType: document.getElementById('systemType').value,
       indoorUnits,
       outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value.trim(),
-      outdoorModelNumber:  document.getElementById('outdoorModelNumber').value.trim(),
+      outdoorModelNumber: document.getElementById('outdoorModelNumber').value.trim(),
       outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value.trim(),
-      electricalOption:    document.getElementById('electricalOption').value,
-      drain:               document.getElementById('drain').value,
-      pressureValue:       document.getElementById('pressureValue').value || '—',
-      micronReading:       document.getElementById('micronReading').value || '—',
-      runningCurrent:      document.getElementById('runningCurrent').value || '—',
-      pipeLength:          document.getElementById('pipeLength').value || '—',
-      suctionLine:         getToggleVal('suctionLine'),
-      liquidLine:          getToggleVal('liquidLine'),
-      engineerComments:    document.getElementById('engineerComments').value.trim() || 'No additional notes.',
-      installDate:         document.getElementById('installDate').value,
-      jobRef:              document.getElementById('jobRef').value.trim(),
-      customerComments:    document.getElementById('customerComments').value.trim() || 'None.',
+      electricalOption: document.getElementById('electricalOption').value,
+      drain: document.getElementById('drain').value,
+      pressureValue: document.getElementById('pressureValue').value || '—',
+      micronReading: document.getElementById('micronReading').value || '—',
+      runningCurrent: document.getElementById('runningCurrent').value || '—',
+      pipeLength: document.getElementById('pipeLength').value || '—',
+      suctionLine: getToggleVal('suctionLine'),
+      liquidLine: getToggleVal('liquidLine'),
+      engineerComments: document.getElementById('engineerComments').value.trim() || 'No additional notes.',
+      installDate: document.getElementById('installDate').value,
+      jobRef: document.getElementById('jobRef').value.trim(),
+      customerComments: document.getElementById('customerComments').value.trim() || 'None.',
       photos,
-      signature:           hasSignature() ? signatureCanvas.toDataURL('image/png') : '',
+      signature: hasSignature() ? signatureCanvas.toDataURL('image/png') : '',
       ...checks
     };
   }
 
   function submitForm() {
-  const data = collectData();
-  document.getElementById('loadingOverlay').classList.add('active');
+    const data = collectData();
+    document.getElementById('loadingOverlay').classList.add('active');
 
-  try {
-    let iframe = document.getElementById('submitTarget');
-    if (!iframe) {
-      iframe = document.createElement('iframe');
-      iframe.name = 'submitTarget';
-      iframe.id = 'submitTarget';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
+    try {
+      const ok = navigator.sendBeacon(
+        SCRIPT_URL,
+        new Blob([JSON.stringify(data)], { type: 'text/plain;charset=utf-8' })
+      );
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = SCRIPT_URL;
-    form.target = 'submitTarget';
-    form.style.display = 'none';
-
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'payload';
-    input.value = JSON.stringify(data);
-
-    form.appendChild(input);
-    document.body.appendChild(form);
-
-    form.submit();
-
-    setTimeout(() => {
       document.getElementById('loadingOverlay').classList.remove('active');
+
+      if (!ok) {
+        alert('Submission failed before it left the browser.');
+        return;
+      }
+
       document.getElementById('formBody').querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
       document.getElementById('progressFill').style.width = '100%';
       window.scrollTo(0, 0);
-      form.remove();
-    }, 1500);
 
-  } catch (err) {
-    document.getElementById('loadingOverlay').classList.remove('active');
-    alert('Submission failed. Please try again.');
-    console.error(err);
+    } catch (err) {
+      document.getElementById('loadingOverlay').classList.remove('active');
+      alert('Something went wrong. Please check your connection and try again.');
+      console.error(err);
+    }
   }
-}
+
   function resetForm() { location.reload(); }
 
-  // ── SIGNATURE PAD ──
   const signatureCanvas = document.getElementById('signaturePad');
   const signatureCtx = signatureCanvas.getContext('2d');
   let isSigning = false;
