@@ -48,7 +48,7 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    height:72px;
+    height:82px;
     position:sticky;
     top:0;
     z-index:100;
@@ -66,10 +66,11 @@
   .header-logo{
     display:flex;
     align-items:center;
+    min-width:160px;
   }
 
   .header-logo img{
-    height:46px;
+    height:60px;
     width:auto;
     display:block;
     object-fit:contain;
@@ -82,18 +83,19 @@
     color:var(--white);
     font-family:'Montserrat',sans-serif;
     font-weight:700;
-    font-size:9px;
-    letter-spacing:1.5px;
+    font-size:10px;
+    letter-spacing:1.6px;
     text-transform:uppercase;
-    padding:6px 10px;
+    padding:8px 12px;
     white-space:nowrap;
+    border-radius:2px;
   }
 
   .progress-wrap{
     background:var(--navy2);
     height:3px;
     position:sticky;
-    top:72px;
+    top:82px;
     z-index:99;
   }
 
@@ -111,7 +113,7 @@
     align-items:center;
     justify-content:space-between;
     position:sticky;
-    top:75px;
+    top:85px;
     z-index:98;
     border-bottom:1px solid rgba(255,255,255,0.06);
   }
@@ -144,14 +146,18 @@
     color:var(--sky);
   }
 
-  .form-body{ padding-bottom:120px; }
+  .form-body{
+    padding-bottom:120px;
+  }
 
   .section{
     display:none;
     animation:fadeUp 0.28s ease;
   }
 
-  .section.active{ display:block; }
+  .section.active{
+    display:block;
+  }
 
   @keyframes fadeUp{
     from{ opacity:0; transform:translateY(10px); }
@@ -200,14 +206,18 @@
     margin-top:5px;
   }
 
-  .field-group{ padding:4px 20px; }
+  .field-group{
+    padding:4px 20px;
+  }
 
   .field{
     padding:14px 0;
     border-bottom:1px solid var(--border2);
   }
 
-  .field:last-child{ border-bottom:none; }
+  .field:last-child{
+    border-bottom:none;
+  }
 
   .field-label{
     font-family:'Montserrat',sans-serif;
@@ -329,7 +339,8 @@
 
   .check-toggle::before{
     content:'';
-    width:20px; height:20px;
+    width:20px;
+    height:20px;
     border:1.5px solid var(--border);
     background:var(--white);
     flex-shrink:0;
@@ -434,7 +445,9 @@
     transition:border-color 0.2s;
   }
 
-  .photo-slot:active{ border-color:var(--blue); }
+  .photo-slot:active{
+    border-color:var(--blue);
+  }
 
   .photo-slot input[type="file"]{
     position:absolute;
@@ -630,7 +643,9 @@
     gap:20px;
   }
 
-  .loading-overlay.active{ display:flex; }
+  .loading-overlay.active{
+    display:flex;
+  }
 
   .spinner{
     width:48px;
@@ -664,7 +679,9 @@
     padding:40px 30px;
   }
 
-  .submit-screen.active{ display:flex; }
+  .submit-screen.active{
+    display:flex;
+  }
 
   .submit-icon{
     width:80px;
@@ -707,7 +724,7 @@
     font-size:13.5px;
     color:var(--muted);
     line-height:1.7;
-    max-width:280px;
+    max-width:320px;
   }
 
   .btn-new{
@@ -984,9 +1001,9 @@
 
   <div class="submit-screen" id="submitScreen">
     <div class="submit-icon">✓</div>
-    <div class="submit-title">Report Sent</div>
-    <div class="submit-sub">The commissioning report has been generated and sent successfully.</div>
-    <button class="btn-new" onclick="location.reload()">New Report</button>
+    <div class="submit-title">Report Generated</div>
+    <div class="submit-sub">The commissioning report has been generated, saved, and sent successfully.</div>
+    <button class="btn-new" onclick="location.reload()">Generate Next Report</button>
   </div>
 </div>
 
@@ -1156,13 +1173,6 @@
         photos[key] = canvas.toDataURL('image/jpeg', 0.7);
 
         const slot = document.getElementById(slotId);
-        const labels = {
-          indoor: 'Indoor Unit',
-          outdoor: 'Outdoor Unit',
-          pipework: 'Pipework',
-          electrical: 'Electrical'
-        };
-
         slot.innerHTML = `
           <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
           <img src="${photos[key]}">
@@ -1299,9 +1309,10 @@
       });
 
       document.getElementById('loadingOverlay').classList.remove('active');
-      document.getElementById('formBody').style.display = 'none';
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
+      window.scrollTo(0, 0);
     } catch (e) {
       alert('Submission Error: ' + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
