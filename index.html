@@ -1068,32 +1068,47 @@
   }
 
   function validateSection(n) {
-    let valid = true;
-    const required = {
-      1: [
-        { id: 'customerName',    type: 'text' },
-        { id: 'customerPhone',   type: 'text' },
-        { id: 'customerEmail',   type: 'email' },
-        { id: 'customerAddress', type: 'text' },
-      ],
-      5: [
-        { id: 'installDate', type: 'text' },
-        { id: 'jobRef',      type: 'text' },
-      ]
-    };
-    if (required[n]) {
-      required[n].forEach(({ id, type }) => {
-        const el = document.getElementById(id);
-        const wrapper = document.getElementById('f-' + id);
-        if (!wrapper) return;
-        let ok = el.value.trim() !== '';
-        if (type === 'email' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
-        wrapper.classList.toggle('has-error', !ok);
-        if (!ok) valid = false;
-      });
+  let valid = true;
+  const invalid = [];
+
+  const required = {
+    1: ['customerName','customerPhone','customerEmail','customerAddress'],
+    5: ['installDate','jobRef']
+  };
+
+  if (!required[n]) return true;
+
+  required[n].forEach(id => {
+    const el = document.getElementById(id);
+    const wrapper = document.getElementById('f-' + id);
+
+    if (!el) {
+      invalid.push(id + ' (missing field)');
+      valid = false;
+      return;
     }
-    return valid;
+
+    const value = (el.value || '').trim();
+    let ok = value !== '';
+
+    if (id === 'customerEmail' && value) {
+      ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    if (wrapper) wrapper.classList.toggle('has-error', !ok);
+
+    if (!ok) {
+      invalid.push(id + ' = "' + value + '"');
+      valid = false;
+    }
+  });
+
+  if (!valid) {
+    alert('Fix these fields:\n\n' + invalid.join('\n'));
   }
+
+  return valid;
+}
 
   document.querySelectorAll('.toggle-group:not(#checksGroup)').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -1192,8 +1207,9 @@
     };
   }
 
-  async async function submitForm() {
+  async function submitForm() {
   const data = collectData();
+
   document.getElementById('loadingOverlay').classList.add('active');
 
   try {
@@ -1205,6 +1221,7 @@
 
     document.getElementById('loadingOverlay').classList.remove('active');
 
+    // SUCCESS UI
     document.getElementById('formBody').querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById('navBar').style.display = 'none';
     document.getElementById('submitScreen').classList.add('active');
@@ -1213,7 +1230,7 @@
 
   } catch (err) {
     document.getElementById('loadingOverlay').classList.remove('active');
-    alert('Submission failed. Check connection.');
+    alert('❌ Submission failed — check connection');
     console.error(err);
   }
 }
