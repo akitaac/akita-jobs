@@ -42,6 +42,20 @@
     overscroll-behavior:none;
   }
 
+  /* Password Overlay Styles */
+  #passwordOverlay {
+    position:fixed; 
+    inset:0; 
+    background:var(--navy); 
+    z-index:9999; 
+    display:flex; 
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:center; 
+    padding:30px;
+    text-align: center;
+  }
+
   .app-header{
     background:var(--navy);
     padding:0 20px;
@@ -242,6 +256,7 @@
   input[type="tel"],
   input[type="number"],
   input[type="date"],
+  input[type="password"],
   select,
   textarea{
     width:100%;
@@ -744,6 +759,14 @@
 </head>
 <body>
 
+<div id="passwordOverlay">
+  <img src="https://raw.githubusercontent.com/akitaac/akita-jobs/main/Akita.png" style="height:60px; margin-bottom:30px;">
+  <div style="color:var(--sky); font-family:'Montserrat'; font-weight:700; letter-spacing:2px; font-size:10px; margin-bottom:10px;">AUTHORIZED ACCESS ONLY</div>
+  <input type="password" id="passInput" placeholder="Enter Password" style="max-width:300px; text-align:center; border-radius:4px; margin-bottom:15px;">
+  <button class="btn btn-next" style="max-width:300px; width:100%;" onclick="checkPass()">Unlock Form</button>
+  <p id="passError" style="color:var(--error); font-size:12px; margin-top:10px; display:none; font-family:'Montserrat'; font-weight:600;">Incorrect password. Access denied.</p>
+</div>
+
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text">Generating Report...</div>
@@ -1019,6 +1042,24 @@
   let unitCount = 0;
   const photos = {};
 
+  // Password Logic
+  function checkPass() {
+    const pass = document.getElementById('passInput').value;
+    const SECRET = "Akita2026"; // CHANGE YOUR PASSWORD HERE
+
+    if (pass === SECRET) {
+      document.getElementById('passwordOverlay').style.display = 'none';
+      setTimeout(resizeSig, 200);
+    } else {
+      document.getElementById('passError').style.display = 'block';
+      document.getElementById('passInput').value = '';
+    }
+  }
+
+  document.getElementById("passInput").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") checkPass();
+  });
+
   document.getElementById('installDate').valueAsDate = new Date();
 
   function addIndoorUnit(location = '', model = '', serial = '') {
@@ -1217,59 +1258,38 @@
   }
 
   window.addEventListener('resize', resizeSig);
-  setTimeout(resizeSig, 200);
 
-  function getSigPos(e) {
-    const r = sigCanvas.getBoundingClientRect();
-    const point = e.touches ? e.touches[0] : e;
-    return {
-      x: point.clientX - r.left,
-      y: point.clientY - r.top
-    };
-  }
+  // Touch signature events
+  sigCanvas.addEventListener('touchstart', e => { 
+    sigDrawing = true; 
+    sigCtx.beginPath(); 
+    const t = e.touches[0];
+    const rect = sigCanvas.getBoundingClientRect();
+    sigCtx.moveTo(t.clientX - rect.left, t.clientY - rect.top);
+    e.preventDefault(); 
+  }, {passive:false});
 
-  function startSig(e) {
-    sigDrawing = true;
-    const p = getSigPos(e);
-    sigCtx.beginPath();
-    sigCtx.moveTo(p.x, p.y);
-    e.preventDefault();
-  }
-
-  function moveSig(e) {
+  sigCanvas.addEventListener('touchmove', e => {
     if (!sigDrawing) return;
-    const p = getSigPos(e);
-    sigCtx.lineTo(p.x, p.y);
+    const t = e.touches[0], r = sigCanvas.getBoundingClientRect();
+    sigCtx.lineTo(t.clientX - r.left, t.clientY - r.top); 
     sigCtx.stroke();
     e.preventDefault();
-  }
+  }, {passive:false});
 
-  function endSig() {
-    sigDrawing = false;
-  }
-
-  sigCanvas.addEventListener('mousedown', startSig);
-  sigCanvas.addEventListener('mousemove', moveSig);
-  sigCanvas.addEventListener('mouseup', endSig);
-  sigCanvas.addEventListener('mouseleave', endSig);
-
-  sigCanvas.addEventListener('touchstart', startSig, { passive:false });
-  sigCanvas.addEventListener('touchmove', moveSig, { passive:false });
-  sigCanvas.addEventListener('touchend', endSig);
-
-  function clearSignature() {
-    sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
-  }
+  sigCanvas.addEventListener('touchend', () => sigDrawing = false);
+  
+  function clearSignature() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); }
 
   async function submitForm() {
     document.getElementById('loadingOverlay').classList.add('active');
-
+    
     const indoorUnits = [];
     document.querySelectorAll('.unit-card').forEach(card => {
       indoorUnits.push({
-        location: card.querySelector('.u-loc')?.value || '',
-        modelNumber: card.querySelector('.u-mod')?.value || '',
-        serialNumber: card.querySelector('.u-ser')?.value || ''
+        location: card.querySelector('.u-loc').value,
+        model: card.querySelector('.u-mod').value,
+        serial: card.querySelector('.u-ser').value
       });
     });
 
@@ -1283,22 +1303,20 @@
       outdoorModelNumber: document.getElementById('outdoorModelNumber').value,
       outdoorSerialNumber: document.getElementById('outdoorSerialNumber').value,
       outdoorUnitLocation: document.getElementById('outdoorUnitLocation').value,
-      electricalOption: document.getElementById('electricalOption').value,
-      drain: document.getElementById('drain').value,
       pressureValue: document.getElementById('pressureValue').value,
       micronReading: document.getElementById('micronReading').value,
       runningCurrent: document.getElementById('runningCurrent').value,
       pipeLength: document.getElementById('pipeLength').value,
       suctionLine: getToggleVal('suctionLine'),
       liquidLine: getToggleVal('liquidLine'),
+      checks: getChecks(),
       engineerComments: document.getElementById('engineerComments').value,
-      customerComments: document.getElementById('customerComments').value,
       installDate: document.getElementById('installDate').value,
       jobRef: document.getElementById('jobRef').value,
+      customerComments: document.getElementById('customerComments').value,
       indoorUnits: indoorUnits,
       photos: photos,
-      signature: sigCanvas.toDataURL(),
-      ...getChecks()
+      signature: sigCanvas.toDataURL()
     };
 
     try {
@@ -1307,19 +1325,15 @@
         mode: 'no-cors',
         body: JSON.stringify(payload)
       });
-
       document.getElementById('loadingOverlay').classList.remove('active');
-      document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+      document.getElementById('formBody').style.display = 'none';
       document.getElementById('navBar').style.display = 'none';
       document.getElementById('submitScreen').classList.add('active');
-      window.scrollTo(0, 0);
     } catch (e) {
-      alert('Submission Error: ' + e.message);
+      alert("Submission Error: " + e.message);
       document.getElementById('loadingOverlay').classList.remove('active');
     }
   }
-
-  updateProgress();
 </script>
 </body>
 </html>
