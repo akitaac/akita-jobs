@@ -520,22 +520,22 @@
     <div class="field-group">
       <div class="photo-grid">
         <div class="photo-slot" id="slot-indoor">
-          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'indoor','slot-indoor')">
+          <input type="file" accept="image/*" onchange="handlePhoto(this,'indoor','slot-indoor')">
           <div class="photo-slot-icon">📷</div>
           <div class="photo-slot-label">Indoor Unit</div>
         </div>
         <div class="photo-slot" id="slot-outdoor">
-          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'outdoor','slot-outdoor')">
+          <input type="file" accept="image/*" onchange="handlePhoto(this,'outdoor','slot-outdoor')">
           <div class="photo-slot-icon">📷</div>
           <div class="photo-slot-label">Outdoor Unit</div>
         </div>
         <div class="photo-slot" id="slot-pipework">
-          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'pipework','slot-pipework')">
+          <input type="file" accept="image/*" onchange="handlePhoto(this,'pipework','slot-pipework')">
           <div class="photo-slot-icon">📷</div>
           <div class="photo-slot-label">Pipework</div>
         </div>
         <div class="photo-slot" id="slot-electrical">
-          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'electrical','slot-electrical')">
+          <input type="file" accept="image/*" onchange="handlePhoto(this,'electrical','slot-electrical')">
           <div class="photo-slot-icon">📷</div>
           <div class="photo-slot-label">Electrical</div>
         </div>
@@ -574,13 +574,15 @@
   </div>
 
   <!-- SUCCESS -->
-  <div class="submit-screen" id="submitScreen">
-    <div class="submit-icon">✓</div>
-    <div class="submit-title">Report Generated</div>
-    <div class="submit-sub">The commissioning report has been generated, saved, and sent successfully.</div>
-    <button class="btn-new" onclick="location.reload()">Generate Next Report</button>
-  </div>
 
+</div>
+
+<!-- SUCCESS SCREEN — outside formBody so hiding formBody doesn't hide this -->
+<div class="submit-screen" id="submitScreen">
+  <div class="submit-icon">✓</div>
+  <div class="submit-title">Report Generated</div>
+  <div class="submit-sub">The commissioning report has been generated, saved, and sent successfully.</div>
+  <button class="btn-new" onclick="location.reload()">Generate Next Report</button>
 </div>
 
 <!-- NAV -->
@@ -791,7 +793,7 @@
 
         const slot = document.getElementById(slotId);
         slot.innerHTML = `
-          <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
+          <input type="file" accept="image/*" onchange="handlePhoto(this,'${key}','${slotId}')">
           <img src="${photos[key]}">
           <button type="button" class="remove-photo" onclick="removePhoto(event,'${key}','${slotId}')">×</button>
         `;
@@ -806,7 +808,7 @@
     delete photos[key];
     const labels = {'slot-indoor':'Indoor Unit','slot-outdoor':'Outdoor Unit','slot-pipework':'Pipework','slot-electrical':'Electrical'};
     document.getElementById(slotId).innerHTML = `
-      <input type="file" accept="image/*" capture="environment" onchange="handlePhoto(this,'${key}','${slotId}')">
+      <input type="file" accept="image/*" onchange="handlePhoto(this,'${key}','${slotId}')">
       <div class="photo-slot-icon">📷</div>
       <div class="photo-slot-label">${labels[slotId]}</div>
     `;
