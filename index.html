@@ -708,6 +708,8 @@
     document.getElementById('section-' + n).classList.add('active');
     updateProgress();
     window.scrollTo(0, 0);
+    // Resize signature canvas when section 5 becomes visible
+    if (n === 5) setTimeout(resizeSig, 100);
   }
 
   function validateSection(n) {
@@ -840,6 +842,22 @@
   }, {passive:false});
 
   sigCanvas.addEventListener('touchend', () => sigDrawing = false);
+
+  // Mouse events for desktop testing
+  sigCanvas.addEventListener('mousedown', e => {
+    sigDrawing = true; sigCtx.beginPath();
+    const r = sigCanvas.getBoundingClientRect();
+    sigCtx.moveTo(e.clientX - r.left, e.clientY - r.top);
+  });
+  sigCanvas.addEventListener('mousemove', e => {
+    if (!sigDrawing) return;
+    const r = sigCanvas.getBoundingClientRect();
+    sigCtx.lineTo(e.clientX - r.left, e.clientY - r.top);
+    sigCtx.stroke();
+  });
+  sigCanvas.addEventListener('mouseup', () => sigDrawing = false);
+  sigCanvas.addEventListener('mouseleave', () => sigDrawing = false);
+
   function clearSignature() { sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height); }
 
   // ── SUBMIT ──
